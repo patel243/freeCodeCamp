@@ -2,8 +2,6 @@
 id: 5a24c314108439a4d4036171
 title: Render State in the User Interface
 challengeType: 6
-isHidden: false
-isRequired: false
 forumTopicId: 301409
 ---
 
@@ -31,7 +29,8 @@ tests:
   - text: <code>MyComponent</code> should render an <code>h1</code> header enclosed in a single <code>div</code>.
     testString: assert(/<div><h1>.*<\/h1><\/div>/.test(Enzyme.mount(React.createElement(MyComponent)).html()));
   - text: The rendered <code>h1</code> header should contain text rendered from the component&apos;s state.
-    testString: 'async () => { const waitForIt = (fn) => new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250)); const mockedComponent = Enzyme.mount(React.createElement(MyComponent)); const first = () => { mockedComponent.setState({ name: ''TestName'' });   return waitForIt(() => mockedComponent.html()) }; const firstValue = await first(); assert(firstValue === ''<div><h1>TestName</h1></div>'');};'
+    testString: |
+      async () => { const waitForIt = (fn) => new Promise((resolve, reject) => setTimeout(() => resolve(fn()), 250)); const mockedComponent = Enzyme.mount(React.createElement(MyComponent)); const first = () => { mockedComponent.setState({ name: 'TestName' }); return waitForIt(() => mockedComponent.html()) }; const firstValue = await first(); const getValue = firstValue.replace(/\s/g, ''); assert(getValue === '<div><h1>TestName</h1></div>'); };
 
 ```
 
@@ -53,9 +52,9 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        { /* change code below this line */ }
+        { /* Change code below this line */ }
 
-        { /* change code above this line */ }
+        { /* Change code above this line */ }
       </div>
     );
   }
@@ -68,7 +67,7 @@ class MyComponent extends React.Component {
 ### After Test
 <div id='jsx-teardown'>
 
-```js
+```jsx
 ReactDOM.render(<MyComponent />, document.getElementById('root'))
 ```
 
@@ -80,7 +79,7 @@ ReactDOM.render(<MyComponent />, document.getElementById('root'))
 <section id='solution'>
 
 
-```js
+```jsx
 class MyComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -91,9 +90,9 @@ class MyComponent extends React.Component {
   render() {
     return (
       <div>
-        { /* change code below this line */ }
+        { /* Change code below this line */ }
         <h1>{this.state.name}</h1>
-        { /* change code above this line */ }
+        { /* Change code above this line */ }
       </div>
     );
   }

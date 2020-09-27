@@ -1,7 +1,6 @@
 ---
 id: af7588ade1100bde429baf20
 title: Missing letters
-isRequired: true
 challengeType: 5
 forumTopicId: 16023
 localeTitle: Пропущенные буквы
@@ -9,7 +8,7 @@ localeTitle: Пропущенные буквы
 
 ## Description
 <section id='description'>
-Найдите отсутствующую букву в пробе прошедшего письма и верните ее. Если все буквы присутствуют в диапазоне, верните undefined. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Найдите отсутствующую букву в пробе прошедшего письма и верните ее. Если все буквы присутствуют в диапазоне, верните undefined. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

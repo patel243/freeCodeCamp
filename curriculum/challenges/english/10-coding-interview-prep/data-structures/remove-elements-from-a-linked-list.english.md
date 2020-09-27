@@ -2,7 +2,6 @@
 id: 587d8251367417b2b2512c63
 title: Remove Elements from a Linked List
 challengeType: 1
-isHidden: false
 forumTopicId: 301712
 ---
 
@@ -67,13 +66,13 @@ function LinkedList() {
     if(head === null){
         head = node;
     } else {
-        var currentNode = head;
+      var currentNode = head;
 
-        while(currentNode.next){
-            currentNode  = currentNode.next;
-        }
+      while(currentNode.next){
+        currentNode  = currentNode.next;
+      }
 
-        currentNode.next = node;
+      currentNode.next = node;
     }
 
     length++;

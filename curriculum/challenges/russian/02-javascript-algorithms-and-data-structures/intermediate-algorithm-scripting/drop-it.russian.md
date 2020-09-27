@@ -1,7 +1,6 @@
 ---
 id: a5deed1811a43193f9f1c841
 title: Drop it
-isRequired: true
 challengeType: 5
 forumTopicId: 16010
 localeTitle: Брось это
@@ -9,7 +8,7 @@ localeTitle: Брось это
 
 ## Description
 <section id='description'>
-Учитывая массив <code>arr</code> , выполните итерацию и удаление каждого элемента, начиная с первого элемента (индекс 0) до тех пор, пока функция <code>func</code> вернет <code>true</code> когда итерационный элемент пройдет через него. Затем возвращаем остальную часть массива после выполнения условия, иначе <code>arr</code> должен быть возвращен как пустой массив. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Учитывая массив <code>arr</code> , выполните итерацию и удаление каждого элемента, начиная с первого элемента (индекс 0) до тех пор, пока функция <code>func</code> вернет <code>true</code> когда итерационный элемент пройдет через него. Затем возвращаем остальную часть массива после выполнения условия, иначе <code>arr</code> должен быть возвращен как пустой массив. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

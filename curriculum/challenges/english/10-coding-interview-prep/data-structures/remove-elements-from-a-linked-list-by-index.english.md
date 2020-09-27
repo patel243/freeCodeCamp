@@ -2,7 +2,6 @@
 id: 587d8251367417b2b2512c65
 title: Remove Elements from a Linked List by Index
 challengeType: 1
-isHidden: false
 forumTopicId: 301711
 ---
 
@@ -53,7 +52,7 @@ function LinkedList() {
   var length = 0;
   var head = null;
 
-  var Node = function(element){ // {1}
+  var Node = function(element){
     this.element = element;
     this.next = null;
   };
@@ -69,15 +68,15 @@ function LinkedList() {
   this.add = function(element){
     var node = new Node(element);
     if(head === null){
-        head = node;
+      head = node;
     } else {
-        var currentNode = head;
+      var currentNode = head;
 
-        while(currentNode.next){
-            currentNode  = currentNode.next;
-        }
+      while(currentNode.next){
+        currentNode  = currentNode.next;
+      }
 
-        currentNode.next = node;
+      currentNode.next = node;
     }
 
     length++;
@@ -101,7 +100,7 @@ function LinkedList() {
   var length = 0;
   var head = null;
 
-  var Node = function (element) { // {1}
+  var Node = function (element) {
     this.element = element;
     this.next = null;
   };

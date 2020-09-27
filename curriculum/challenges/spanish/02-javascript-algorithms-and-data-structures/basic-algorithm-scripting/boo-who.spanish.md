@@ -1,14 +1,13 @@
 ---
 id: a77dbc43c33f39daa4429b4f
 title: Boo who
-isRequired: true
 challengeType: 5
 videoUrl: ''
 localeTitle: Boo quien
 ---
 
 ## Descripción
-<section id="description"> Compruebe si un valor es clasificado como un primitivo booleano. Devuelve verdadero o falso. Los primitivos booleanos son verdaderos y falsos. Recuerda usar la técnica de <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Leer-Buscar-Preguntar</a> si te atascas. Trate de emparejar el programa. Escribe tu propio código. </section>
+<section id="description"> Compruebe si un valor es clasificado como un primitivo booleano. Devuelve verdadero o falso. Los primitivos booleanos son verdaderos y falsos. Recuerda usar la técnica de <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Leer-Buscar-Preguntar</a> si te atascas. Trate de emparejar el programa. Escribe tu propio código. </section>
 
 ## Instrucciones
 <section id="instructions">

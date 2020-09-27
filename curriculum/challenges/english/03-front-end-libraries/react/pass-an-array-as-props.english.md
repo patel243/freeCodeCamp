@@ -2,8 +2,6 @@
 id: 5a24c314108439a4d403616a
 title: Pass an Array as Props
 challengeType: 6
-isHidden: false
-isRequired: false
 forumTopicId: 301401
 ---
 
@@ -47,7 +45,14 @@ tests:
   - text: The second <code>List</code> component representing the tasks for tomorrow should have 3 or more items.
     testString: assert((function() { const mockedComponent = Enzyme.mount(React.createElement(ToDo)); return mockedComponent.find('List').get(1).props.tasks.length >= 3; })());
   - text: The <code>List</code> component should render the value from the <code>tasks</code> prop in the <code>p</code> tag.
-    testString: assert((function() { const mockedComponent = Enzyme.mount(React.createElement(ToDo)); return mockedComponent.find('p').get(0).props.children === mockedComponent.find('List').get(0).props.tasks.join(', ') && mockedComponent.find('p').get(1).props.children === mockedComponent.find('List').get(1).props.tasks.join(', '); })());
+    testString: |
+      assert((function() {
+        const mockedComponent = Enzyme.mount(React.createElement(ToDo));
+        return (
+          mockedComponent.find('p').get(0).props.children.replace(/\s*,\s*/g,',') === mockedComponent.find('List').get(0).props.tasks.join(',').replace(/\s*,\s*/g,',') &&
+          mockedComponent.find('p').get(1).props.children.replace(/\s*,\s*/g,',') === mockedComponent.find('List').get(1).props.tasks.join(',').replace(/\s*,\s*/g,',')
+        );
+      })());
 
 ```
 
@@ -60,9 +65,9 @@ tests:
 
 ```jsx
 const List = (props) => {
-  { /* change code below this line */ }
+  { /* Change code below this line */ }
   return <p>{}</p>
-  { /* change code above this line */ }
+  { /* Change code above this line */ }
 };
 
 class ToDo extends React.Component {
@@ -74,11 +79,11 @@ class ToDo extends React.Component {
       <div>
         <h1>To Do Lists</h1>
         <h2>Today</h2>
-        { /* change code below this line */ }
+        { /* Change code below this line */ }
         <List/>
         <h2>Tomorrow</h2>
         <List/>
-        { /* change code above this line */ }
+        { /* Change code above this line */ }
       </div>
     );
   }
@@ -91,7 +96,7 @@ class ToDo extends React.Component {
 ### After Test
 <div id='jsx-teardown'>
 
-```js
+```jsx
 ReactDOM.render(<ToDo />, document.getElementById('root'))
 ```
 
@@ -103,7 +108,7 @@ ReactDOM.render(<ToDo />, document.getElementById('root'))
 <section id='solution'>
 
 
-```js
+```jsx
 const List= (props) => {
   return <p>{props.tasks.join(', ')}</p>
 };

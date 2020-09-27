@@ -1,7 +1,6 @@
 ---
 id: ab6137d4e35944e21037b769
 title: Title Case a Sentence
-isRequired: true
 challengeType: 5
 forumTopicId: 16088
 localeTitle: Название Случайное предложение
@@ -9,7 +8,7 @@ localeTitle: Название Случайное предложение
 
 ## Description
 <section id='description'>
-Верните предоставленную строку с первой буквой каждого слова, заглавными. Убедитесь, что остальная часть слова находится в нижнем регистре. Для целей этого упражнения вы также должны использовать прописные слова, такие как «the» и «of». Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Верните предоставленную строку с первой буквой каждого слова, заглавными. Убедитесь, что остальная часть слова находится в нижнем регистре. Для целей этого упражнения вы также должны использовать прописные слова, такие как «the» и «of». Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

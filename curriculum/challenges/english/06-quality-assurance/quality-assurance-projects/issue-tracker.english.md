@@ -2,16 +2,14 @@
 id: 587d8249367417b2b2512c42
 title: Issue Tracker
 challengeType: 4
-isHidden: false
-isRequired: true
 forumTopicId: 301569
 ---
 
 ## Description
 <section id='description'>
-Build a full stack JavaScript app that is functionally similar to this: <a href='https://protective-garage.glitch.me/' target='_blank'>https://protective-garage.glitch.me/</a>.
-Working on this project will involve you writing your code on Glitch on our starter project. After completing this project you can copy your public glitch url (to the homepage of your app) into this screen to test it! Optionally you may choose to write your project on another platform but it must be publicly visible for our testing.
-Start this project on Glitch using <a href='https://glitch.com/edit/#!/remix/clone-from-repo?REPO_URL=https://github.com/freeCodeCamp/boilerplate-project-issuetracker/'>this link</a> or clone <a href='https://github.com/freeCodeCamp/boilerplate-project-issuetracker/'>this repository</a> on GitHub! If you use Glitch, remember to save the link to your project somewhere safe!
+Build a full stack JavaScript app that is functionally similar to this: <a href="https://issue-tracker--freecodecamp.repl.co/" target="_blank">https://issue-tracker--freecodecamp.repl.co/</a>.
+Working on this project will involve you writing your code on Repl.it on our starter project. After completing this project you can copy your public Repl.it URL (to the homepage of your app) into this screen to test it! Optionally you may choose to write your project on another platform but it must be publicly visible for our testing.
+Start this project on Repl.it using <a href="https://repl.it/github/freeCodeCamp/boilerplate-project-issuetracker">this link</a> or clone <a href='https://github.com/freeCodeCamp/boilerplate-project-issuetracker/'>this repository</a> on GitHub! If you use Repl.it, remember to save the link to your project somewhere safe!
 </section>
 
 ## Instructions
@@ -24,8 +22,6 @@ Start this project on Glitch using <a href='https://glitch.com/edit/#!/remix/clo
 
 ```yml
 tests:
-  - text: Prevent cross site scripting (XSS) attacks.
-    testString: ''
   - text: I can POST /api/issues/{projectname} with form data containing required issue_title, issue_text, created_by, and optional assigned_to and status_text.
     testString: ''
   - text: The object saved (and returned) will include all of those fields (blank for optional no input) and also include created_on(date/time), updated_on(date/time), open(boolean, true for open, false for closed), and _id.

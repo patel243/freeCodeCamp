@@ -1,9 +1,7 @@
 ---
 id: afd15382cdfb22c9efe8b7de
 title: DNA Pairing
-isRequired: true
 challengeType: 5
-isHidden: false
 forumTopicId: 16009
 ---
 

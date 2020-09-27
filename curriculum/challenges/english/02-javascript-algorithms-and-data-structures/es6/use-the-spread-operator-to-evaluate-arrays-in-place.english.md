@@ -2,7 +2,6 @@
 id: 587d7b89367417b2b2512b48
 title: Use the Spread Operator to Evaluate Arrays In-Place
 challengeType: 1
-isHidden: false
 forumTopicId: 301222
 ---
 
@@ -44,7 +43,7 @@ Copy all contents of <code>arr1</code> into another array <code>arr2</code> usin
 ```yml
 tests:
   - text: <code>arr2</code> should be correct copy of <code>arr1</code>.
-    testString: assert(arr2.every((v, i) => v === arr1[i]));
+    testString: assert(arr2.every((v, i) => v === arr1[i]) && arr2.length);
   - text: <code>...</code> spread operator should be used to duplicate <code>arr1</code>.
     testString: assert(code.match(/Array\(\s*\.\.\.arr1\s*\)|\[\s*\.\.\.arr1\s*\]/));
   - text: <code>arr2</code> should remain unchanged when <code>arr1</code> is changed.

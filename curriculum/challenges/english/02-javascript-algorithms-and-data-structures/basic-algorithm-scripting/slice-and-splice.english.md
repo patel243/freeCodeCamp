@@ -1,16 +1,14 @@
 ---
 id: 579e2a2c335b9d72dd32e05c
 title: Slice and Splice
-isRequired: true
 challengeType: 5
-isHidden: false
 forumTopicId: 301148
 ---
 
 ## Description
 <section id='description'>
 You are given two arrays and an index.
-Use the array methods <code>slice</code> and <code>splice</code> to copy each element of the first array into the second array, in order.
+Copy each element of the first array into the second array, in order.
 Begin inserting elements at index <code>n</code> of the second array.
 Return the resulting array. The input arrays should remain the same after the function runs.
 </section>
@@ -34,9 +32,9 @@ tests:
   - text: All elements from the first array should be added to the second array in their original order.
     testString: assert.deepEqual(frankenSplice([1, 2, 3, 4], [], 0), [1, 2, 3, 4]);
   - text: The first array should remain the same after the function runs.
-    testString: frankenSplice(testArr1, testArr2); assert.deepEqual(testArr1, [1, 2]);
+    testString: frankenSplice(testArr1, testArr2, 1); assert.deepEqual(testArr1, [1, 2]);
   - text: The second array should remain the same after the function runs.
-    testString: frankenSplice(testArr1, testArr2); assert.deepEqual(testArr2, ["a", "b"]);
+    testString: frankenSplice(testArr1, testArr2, 1); assert.deepEqual(testArr2, ["a", "b"]);
 
 ```
 

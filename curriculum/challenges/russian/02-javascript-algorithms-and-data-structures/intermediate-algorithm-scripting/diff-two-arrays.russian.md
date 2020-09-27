@@ -1,7 +1,6 @@
 ---
 id: a5de63ebea8dbee56860f4f2
 title: Diff Two Arrays
-isRequired: true
 challengeType: 5
 forumTopicId: 16008
 localeTitle: Diff Два массива
@@ -9,7 +8,7 @@ localeTitle: Diff Два массива
 
 ## Description
 <section id='description'>
-Сравните два массива и верните новый массив с любыми элементами, найденными только в одном из двух заданных массивов, но не обоих. Другими словами, верните симметричную разность двух массивов. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код. <strong>Заметка</strong> <br> Вы можете вернуть массив с его элементами в любом порядке.
+Сравните два массива и верните новый массив с любыми элементами, найденными только в одном из двух заданных массивов, но не обоих. Другими словами, верните симметричную разность двух массивов. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код. <strong>Заметка</strong> <br> Вы можете вернуть массив с его элементами в любом порядке.
 </section>
 
 ## Instructions

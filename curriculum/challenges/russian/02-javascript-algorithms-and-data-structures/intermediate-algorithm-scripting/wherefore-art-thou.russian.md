@@ -1,7 +1,6 @@
 ---
 id: a8e512fbe388ac2f9198f0fa
 title: Wherefore art thou
-isRequired: true
 challengeType: 5
 forumTopicId: 16092
 localeTitle: Итак, ты
@@ -9,7 +8,7 @@ localeTitle: Итак, ты
 
 ## Description
 <section id='description'>
-Создайте функцию, которая просматривает массив объектов (первый аргумент) и возвращает массив всех объектов, имеющих соответствующие пары имени и значения (второй аргумент). Каждая пара имен и значений исходного объекта должна присутствовать в объекте из коллекции, если она должна быть включена в возвращаемый массив. Например, если первым аргументом является <code>[{ first: &quot;Romeo&quot;, last: &quot;Montague&quot; }, { first: &quot;Mercutio&quot;, last: null }, { first: &quot;Tybalt&quot;, last: &quot;Capulet&quot; }]</code> , и второй аргумент <code>{ last: &quot;Capulet&quot; }</code> , то вы должны вернуть третий объект из массива (первый аргумент), потому что он содержит имя и его значение, которое было передано как второй аргумент. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Создайте функцию, которая просматривает массив объектов (первый аргумент) и возвращает массив всех объектов, имеющих соответствующие пары имени и значения (второй аргумент). Каждая пара имен и значений исходного объекта должна присутствовать в объекте из коллекции, если она должна быть включена в возвращаемый массив. Например, если первым аргументом является <code>[{ first: &quot;Romeo&quot;, last: &quot;Montague&quot; }, { first: &quot;Mercutio&quot;, last: null }, { first: &quot;Tybalt&quot;, last: &quot;Capulet&quot; }]</code> , и второй аргумент <code>{ last: &quot;Capulet&quot; }</code> , то вы должны вернуть третий объект из массива (первый аргумент), потому что он содержит имя и его значение, которое было передано как второй аргумент. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

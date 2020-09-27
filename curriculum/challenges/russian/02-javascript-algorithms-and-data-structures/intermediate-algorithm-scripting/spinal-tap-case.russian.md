@@ -1,7 +1,6 @@
 ---
 id: a103376db3ba46b2d50db289
 title: Spinal Tap Case
-isRequired: true
 challengeType: 5
 forumTopicId: 16078
 localeTitle: Чехол для спинного диска
@@ -9,7 +8,7 @@ localeTitle: Чехол для спинного диска
 
 ## Description
 <section id='description'>
-Преобразуйте строку в спинальный регистр. Спинальный чехол - все-строчные слова, соединенные тире. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Преобразуйте строку в спинальный регистр. Спинальный чехол - все-строчные слова, соединенные тире. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

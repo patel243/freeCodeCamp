@@ -2,7 +2,6 @@
 title: Tokenize a string with escaping
 id: 594faaab4e2a8626833e9c3d
 challengeType: 5
-isHidden: false
 forumTopicId: 302338
 ---
 
@@ -65,7 +64,7 @@ tests:
 <div id='js-seed'>
 
 ```js
-function tokenize(str, esc, sep) {
+function tokenize(str, sep, esc) {
   return true;
 }
 ```

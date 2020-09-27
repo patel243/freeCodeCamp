@@ -1,7 +1,6 @@
 ---
 id: a7f4d8f2483413a6ce226cac
 title: Roman Numeral Converter
-isRequired: true
 challengeType: 5
 forumTopicId: 16044
 localeTitle: Конвертер римской цифры
@@ -9,7 +8,7 @@ localeTitle: Конвертер римской цифры
 
 ## Description
 <section id='description'>
-Преобразуйте заданное число в римскую цифру. Все <a href="http://www.mathsisfun.com/roman-numerals.html" target="_blank">римские цифры</a> должны быть указаны в верхнем регистре. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Преобразуйте заданное число в римскую цифру. Все <a href="http://www.mathsisfun.com/roman-numerals.html" target="_blank">римские цифры</a> должны быть указаны в верхнем регистре. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

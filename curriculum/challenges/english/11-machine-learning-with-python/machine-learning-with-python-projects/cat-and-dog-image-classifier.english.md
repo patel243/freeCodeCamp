@@ -2,13 +2,11 @@
 id: 5e46f8dcac417301a38fb92e
 title: Cat and Dog Image Classifier
 challengeType: 10
-isHidden: false
-isRequired: true
 ---
 
 ## Description
 <section id='description'>
-For this challenge, you will use Tensorflow 2.0 and Karas to create a convolutional neural network that correctly classifies images of cats and dogs with at least 63% accuracy.
+For this challenge, you will use TensorFlow 2.0 and Keras to create a convolutional neural network that correctly classifies images of cats and dogs with at least 63% accuracy.
 
 You can access <a href='https://colab.research.google.com/drive/1UCHiRuBLxo0S3aMuiDXlaP54LsxzrXHz' target='_blank'>the full project instructions and starter code on Google Colaboratory</a>.
 

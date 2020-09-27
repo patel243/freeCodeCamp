@@ -2,8 +2,6 @@
 id: 5a24c314108439a4d4036145
 title: Map State to Props
 challengeType: 6
-isHidden: false
-isRequired: false
 forumTopicId: 301433
 ---
 
@@ -45,7 +43,7 @@ tests:
 ```jsx
 const state = [];
 
-// change code below this line
+// Change code below this line
 
 ```
 
@@ -59,10 +57,10 @@ const state = [];
 <section id='solution'>
 
 
-```js
+```jsx
 const state = [];
 
-// change code below this line
+// Change code below this line
 
 const mapStateToProps = (state) => {
   return {

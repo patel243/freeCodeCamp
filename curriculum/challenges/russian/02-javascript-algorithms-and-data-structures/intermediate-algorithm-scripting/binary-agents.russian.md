@@ -1,7 +1,6 @@
 ---
 id: a8d97bd4c764e91f9d2bda01
 title: Binary Agents
-isRequired: true
 challengeType: 5
 forumTopicId: 14273
 localeTitle: Двоичные агенты
@@ -9,7 +8,7 @@ localeTitle: Двоичные агенты
 
 ## Description
 <section id='description'>
-Верните английское переведенное предложение прошедшей двоичной строки. Бинарная строка будет разделена пробелом. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Верните английское переведенное предложение прошедшей двоичной строки. Бинарная строка будет разделена пробелом. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

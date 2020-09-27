@@ -1,7 +1,6 @@
 ---
 id: a6b0bb188d873cb2c8729495
 title: Convert HTML Entities
-isRequired: true
 challengeType: 5
 forumTopicId: 16007
 localeTitle: Преобразование HTML-объектов
@@ -9,7 +8,7 @@ localeTitle: Преобразование HTML-объектов
 
 ## Description
 <section id='description'>
-Преобразуйте символы <code>&amp;</code> , <code>&lt;</code> , <code>&gt;</code> , <code>&quot;</code> (двойная кавычка) и <code>&#39;</code> (апострофа) в строку в соответствующие HTML-объекты. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. собственный код.
+Преобразуйте символы <code>&amp;</code> , <code>&lt;</code> , <code>&gt;</code> , <code>&quot;</code> (двойная кавычка) и <code>&#39;</code> (апострофа) в строку в соответствующие HTML-объекты. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. собственный код.
 </section>
 
 ## Instructions

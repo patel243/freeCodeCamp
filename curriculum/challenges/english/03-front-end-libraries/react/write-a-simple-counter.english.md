@@ -2,8 +2,6 @@
 id: 5a24c314108439a4d4036177
 title: Write a Simple Counter
 challengeType: 6
-isHidden: false
-isRequired: false
 forumTopicId: 301425
 ---
 
@@ -50,13 +48,13 @@ class Counter extends React.Component {
     this.state = {
       count: 0
     };
-    // change code below this line
+    // Change code below this line
 
-    // change code above this line
+    // Change code above this line
   }
-  // change code below this line
+  // Change code below this line
 
-  // change code above this line
+  // Change code above this line
   render() {
     return (
       <div>
@@ -76,7 +74,7 @@ class Counter extends React.Component {
 ### After Test
 <div id='jsx-teardown'>
 
-```js
+```jsx
 ReactDOM.render(<Counter />, document.getElementById('root'))
 ```
 
@@ -88,7 +86,7 @@ ReactDOM.render(<Counter />, document.getElementById('root'))
 <section id='solution'>
 
 
-```js
+```jsx
 class Counter extends React.Component {
   constructor(props) {
     super(props);

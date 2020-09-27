@@ -1,7 +1,6 @@
 ---
 id: a3566b1109230028080c9345
 title: Sum All Numbers in a Range
-isRequired: true
 challengeType: 5
 forumTopicId: 16083
 localeTitle: Сумма всех чисел в диапазоне
@@ -9,7 +8,7 @@ localeTitle: Сумма всех чисел в диапазоне
 
 ## Description
 <section id='description'>
-Мы передадим вам массив из двух чисел. Верните сумму этих двух чисел плюс сумму всех чисел между ними. Самое низкое число не всегда будет первым. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
+Мы передадим вам массив из двух чисел. Верните сумму этих двух чисел плюс сумму всех чисел между ними. Самое низкое число не всегда будет первым. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Попробуйте подключить программу. Напишите свой собственный код.
 </section>
 
 ## Instructions

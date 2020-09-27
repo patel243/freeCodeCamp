@@ -1,9 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Col, Row, Image } from '@freecodecamp/react-bootstrap';
+import { Col, Row } from '@freecodecamp/react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAward, faHeart } from '@fortawesome/free-solid-svg-icons';
-import Identicon from 'react-identicons';
+import {
+  faAward,
+  faHeart,
+  faCalendar
+} from '@fortawesome/free-solid-svg-icons';
+
+import { AvatarRenderer } from '../../helpers';
 
 import SocialIcons from './SocialIcons';
 
@@ -17,6 +22,7 @@ const propTypes = {
   isLinkedIn: PropTypes.bool,
   isTwitter: PropTypes.bool,
   isWebsite: PropTypes.bool,
+  joinDate: PropTypes.string,
   linkedin: PropTypes.string,
   location: PropTypes.string,
   name: PropTypes.string,
@@ -46,6 +52,13 @@ function joinArray(array) {
   });
 }
 
+function parseDate(joinDate) {
+  joinDate = new Date(joinDate);
+  const year = joinDate.getFullYear();
+  const month = joinDate.toLocaleString('en-US', { month: 'long' });
+  return `Joined ${month} ${year}`;
+}
+
 function Camper({
   name,
   username,
@@ -60,33 +73,21 @@ function Camper({
   isGithub,
   isTwitter,
   isWebsite,
+  joinDate,
   linkedin,
   twitter,
   website
 }) {
-  // A lot of the user-profiles are still using the defunct service.
-  const avatar = /example.com|identicon.org/.test(picture) ? (
-    <Identicon
-      bg={'#858591'}
-      count={5}
-      fg={'#0A0A23'}
-      padding={5}
-      size={256}
-      string={username}
-    />
-  ) : (
-    <Image
-      alt={username + "'s avatar"}
-      className='avatar'
-      responsive={true}
-      src={picture}
-    />
-  );
   return (
     <div>
       <Row>
         <Col className='avatar-container' xs={12}>
-          <div className={isDonating ? 'supporter-img' : ''}>{avatar}</div>
+          <AvatarRenderer
+            isDonating={isDonating}
+            isTopContributor={yearsTopContributor.length > 0}
+            picture={picture}
+            userName={username}
+          />
         </Col>
       </Row>
       <SocialIcons
@@ -110,6 +111,11 @@ function Camper({
         </p>
       )}
       {about && <p className='bio text-center'>{about}</p>}
+      {joinDate && (
+        <p className='bio text-center'>
+          <FontAwesomeIcon icon={faCalendar} /> {parseDate(joinDate)}
+        </p>
+      )}
       {yearsTopContributor.filter(Boolean).length > 0 && (
         <div>
           <br />

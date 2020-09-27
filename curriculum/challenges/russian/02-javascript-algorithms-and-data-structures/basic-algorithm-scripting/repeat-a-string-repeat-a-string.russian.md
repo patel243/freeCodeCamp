@@ -1,7 +1,6 @@
 ---
 id: afcc8d540bea9ea2669306b6
 title: Repeat a String Repeat a String
-isRequired: true
 challengeType: 5
 forumTopicId: 16041
 localeTitle: Повторить строку Повторить строку
@@ -9,7 +8,7 @@ localeTitle: Повторить строку Повторить строку
 
 ## Description
 <section id='description'>
-Повторите заданную строку <code>str</code> (первый аргумент) для <code>num</code> times (второй аргумент). Верните пустую строку, если <code>num</code> не является положительным числом. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Повторите заданную строку <code>str</code> (первый аргумент) для <code>num</code> times (второй аргумент). Верните пустую строку, если <code>num</code> не является положительным числом. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

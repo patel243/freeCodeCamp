@@ -1,7 +1,6 @@
 ---
 id: 579e2a2c335b9d72dd32e05c
 title: Slice and Splice
-isRequired: true
 isBeta: true
 challengeType: 5
 forumTopicId: 301148
@@ -10,7 +9,7 @@ localeTitle: Нарезка и сращивание
 
 ## Description
 <section id='description'>
-Вам даны два массива и индекс. Используйте метод массива <code>slice</code> и <code>splice</code> для копирования каждого элемента первого массива во второй массив по порядку. Начните вставлять элементы в индекс <code>n</code> второго массива. Верните результирующий массив. Входные массивы должны оставаться неизменными после запуска функции. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Вам даны два массива и индекс. Используйте метод массива <code>slice</code> и <code>splice</code> для копирования каждого элемента первого массива во второй массив по порядку. Начните вставлять элементы в индекс <code>n</code> второго массива. Верните результирующий массив. Входные массивы должны оставаться неизменными после запуска функции. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

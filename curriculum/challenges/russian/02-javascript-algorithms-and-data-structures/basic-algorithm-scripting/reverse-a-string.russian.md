@@ -1,7 +1,6 @@
 ---
 id: a202eed8fc186c8434cb6d61
 title: Reverse a String
-isRequired: true
 challengeType: 5
 forumTopicId: 16043
 localeTitle: Обратить строку
@@ -9,7 +8,7 @@ localeTitle: Обратить строку
 
 ## Description
 <section id='description'>
-Переверните предоставленную строку. Возможно, вам придется перевернуть строку в массив, прежде чем вы сможете ее отменить. Ваш результат должен быть строкой. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Переверните предоставленную строку. Возможно, вам придется перевернуть строку в массив, прежде чем вы сможете ее отменить. Ваш результат должен быть строкой. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

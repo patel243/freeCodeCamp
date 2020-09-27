@@ -2,7 +2,6 @@
 id: 587d825b367417b2b2512c8c
 title: Implement Heap Sort with a Min Heap
 challengeType: 1
-isHidden: false
 forumTopicId: 301643
 ---
 
@@ -42,21 +41,22 @@ tests:
 <div id='js-seed'>
 
 ```js
-// check if array is sorted
-function isSorted(arr) {
-  var check = i =>
-    i == arr.length - 1 ? true : arr[i] > arr[i + 1] ? false : check(i + 1);
-  return check(0);
+function isSorted(a){
+  for(let i = 0; i < a.length - 1; i++)
+    if(a[i] > a[i + 1])
+      return false;
+  return true;
 }
-// generate a randomly filled array
+// Generate a randomly filled array
 var array = new Array();
 (function createArray(size = 5) {
   array.push(+(Math.random() * 100).toFixed(0));
   return size > 1 ? createArray(size - 1) : undefined;
 })(25);
 var MinHeap = function() {
-  // change code below this line
-  // change code above this line
+  // Only change code below this line
+  
+  // Only change code above this line
 };
 ```
 

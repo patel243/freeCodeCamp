@@ -1,7 +1,6 @@
 ---
 id: adf08ec01beb4f99fc7a68f2
 title: Falsy Bouncer
-isRequired: true
 challengeType: 5
 forumTopicId: 16014
 localeTitle: Фальшивый вышибала
@@ -9,7 +8,7 @@ localeTitle: Фальшивый вышибала
 
 ## Description
 <section id='description'>
-Удалите все значения фальши из массива. Значения фальши в JavaScript - <code>false</code> , <code>null</code> , <code>0</code> , <code>&quot;&quot;</code> , <code>undefined</code> и <code>NaN</code> . Подсказка: попробуйте преобразовать каждое значение в логическое. Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Удалите все значения фальши из массива. Значения фальши в JavaScript - <code>false</code> , <code>null</code> , <code>0</code> , <code>&quot;&quot;</code> , <code>undefined</code> и <code>NaN</code> . Подсказка: попробуйте преобразовать каждое значение в логическое. Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

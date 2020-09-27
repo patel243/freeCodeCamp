@@ -1,7 +1,6 @@
 ---
 id: a77dbc43c33f39daa4429b4f
 title: Boo who
-isRequired: true
 challengeType: 5
 videoUrl: ''
 localeTitle: 嘘谁
@@ -75,4 +74,5 @@ function booWho(bool) {
 
 booWho(null);
 ```
-</section>
+
+/section>

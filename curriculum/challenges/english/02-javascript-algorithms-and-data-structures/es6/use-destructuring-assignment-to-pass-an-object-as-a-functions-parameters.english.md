@@ -2,7 +2,6 @@
 id: 587d7b8a367417b2b2512b4d
 title: Use Destructuring Assignment to Pass an Object as a Function's Parameters
 challengeType: 1
-isHidden: false
 forumTopicId: 301217
 ---
 
@@ -26,8 +25,7 @@ const profileUpdate = ({ name, age, nationality, location }) => {
 }
 ```
 
-This removes some extra lines and makes our code look neat.
-This has the added benefit of not having to manipulate an entire object in a function — only the fields that are needed are copied inside the function.
+When <code>profileData</code> is passed to the above function, the values are destructured from the function parameter for use within the function.
 </section>
 
 ## Instructions
@@ -45,7 +43,7 @@ tests:
   - text: <code>half(stats)</code> should be <code>28.015</code>
     testString: assert(half(stats) === 28.015);
   - text: Destructuring should be used.
-    testString: assert(code.replace(/\s/g, '').match(/half=\({\w+,\w+}\)/));
+    testString: assert(__helpers.removeWhiteSpace(code).match(/half=\({\w+,\w+}\)/));
   - text: Destructured parameter should be used.
     testString: assert(!code.match(/stats\.max|stats\.min/));
 

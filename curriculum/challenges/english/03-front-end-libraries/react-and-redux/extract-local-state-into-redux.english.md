@@ -2,8 +2,6 @@
 id: 5a24c314108439a4d4036149
 title: Extract Local State into Redux
 challengeType: 6
-isHidden: false
-isRequired: false
 forumTopicId: 301428
 ---
 
@@ -97,10 +95,10 @@ class Presentational extends React.Component {
     });
   }
   submitMessage() {
-    this.setState({
+    this.setState((state) => ({
       input: '',
-      messages: this.state.messages.concat(this.state.input)
-    });
+      messages: state.messages.concat(state.input)
+    }));
   }
   render() {
     return (
@@ -155,7 +153,7 @@ class AppWrapper extends React.Component {
 ### After Test
 <div id='jsx-teardown'>
 
-```js
+```jsx
 ReactDOM.render(<AppWrapper />, document.getElementById('root'))
 ```
 
@@ -167,7 +165,7 @@ ReactDOM.render(<AppWrapper />, document.getElementById('root'))
 <section id='solution'>
 
 
-```js
+```jsx
 // Redux:
 const ADD = 'ADD';
 

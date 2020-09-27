@@ -1,7 +1,6 @@
 ---
 id: a39963a4c10bc8b4d4f06d7e
 title: Seek and Destroy
-isRequired: true
 challengeType: 5
 forumTopicId: 16046
 localeTitle: Найти и уничтожить
@@ -9,7 +8,7 @@ localeTitle: Найти и уничтожить
 
 ## Description
 <section id='description'>
-Вам будет предоставлен исходный массив (первый аргумент в функции эсминца), за которым следуют один или несколько аргументов. Удалите все элементы из исходного массива, которые имеют такое же значение, что и эти аргументы. <strong>Заметка</strong> <br> Вы должны использовать объект <code>arguments</code> . Не забудьте использовать <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
+Вам будет предоставлен исходный массив (первый аргумент в функции эсминца), за которым следуют один или несколько аргументов. Удалите все элементы из исходного массива, которые имеют такое же значение, что и эти аргументы. <strong>Заметка</strong> <br> Вы должны использовать объект <code>arguments</code> . Не забудьте использовать <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">Read-Search-Ask,</a> если вы застряли. Напишите свой собственный код.
 </section>
 
 ## Instructions

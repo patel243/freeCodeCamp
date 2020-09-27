@@ -2,7 +2,6 @@
 id: 587d8251367417b2b2512c64
 title: Search within a Linked List
 challengeType: 1
-isHidden: false
 forumTopicId: 301715
 ---
 
@@ -56,7 +55,7 @@ function LinkedList() {
   var length = 0;
   var head = null;
 
-  var Node = function(element){ // {1}
+  var Node = function(element){
     this.element = element;
     this.next = null;
   };
@@ -74,13 +73,13 @@ function LinkedList() {
     if(head === null){
         head = node;
     } else {
-        var currentNode = head;
+      var currentNode = head;
 
-        while(currentNode.next){
-            currentNode  = currentNode.next;
-        }
+      while(currentNode.next){
+        currentNode = currentNode.next;
+      }
 
-        currentNode.next = node;
+      currentNode.next = node;
     }
 
     length++;
@@ -90,14 +89,14 @@ function LinkedList() {
     var currentNode = head;
     var previousNode;
     if(currentNode.element === element){
-        head = currentNode.next;
+      head = currentNode.next;
     } else {
-        while(currentNode.element !== element) {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
-        }
+      while(currentNode.element !== element) {
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
 
-        previousNode.next = currentNode.next;
+      previousNode.next = currentNode.next;
     }
 
     length --;
@@ -121,7 +120,7 @@ function LinkedList() {
   var length = 0;
   var head = null;
 
-  var Node = function(element){ // {1}
+  var Node = function(element){
     this.element = element;
     this.next = null;
   };

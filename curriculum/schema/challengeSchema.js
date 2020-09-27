@@ -3,6 +3,20 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const { challengeTypes } = require('../../client/utils/challengeTypes');
 
+const fileJoi = Joi.object().keys({
+  key: Joi.string(),
+  ext: Joi.string(),
+  name: Joi.string(),
+  editableRegionBoundaries: [Joi.array().items(Joi.number())],
+  path: Joi.string(),
+  error: Joi.empty(),
+  head: Joi.string().allow(''),
+  tail: Joi.string().allow(''),
+  seed: Joi.string().allow(''),
+  contents: Joi.string().allow(''),
+  history: [Joi.array().items(Joi.string().allow('')), Joi.string().allow('')]
+});
+
 function getSchemaForLang(lang) {
   let schema = Joi.object().keys({
     block: Joi.string(),
@@ -20,36 +34,21 @@ function getSchemaForLang(lang) {
       otherwise: Joi.string().required()
     }),
     fileName: Joi.string(),
-    files: Joi.array().items(
-      Joi.object().keys({
-        key: Joi.string(),
-        ext: Joi.string(),
-        name: Joi.string(),
-        head: [
-          Joi.array().items(Joi.string().allow('')),
-          Joi.string().allow('')
-        ],
-        tail: [
-          Joi.array().items(Joi.string().allow('')),
-          Joi.string().allow('')
-        ],
-        contents: [
-          Joi.array().items(Joi.string().allow('')),
-          Joi.string().allow('')
-        ]
-      })
-    ),
+    files: Joi.object().keys({
+      indexcss: fileJoi,
+      indexhtml: fileJoi,
+      indexjs: fileJoi,
+      indexjsx: fileJoi
+    }),
     guideUrl: Joi.string().uri({ scheme: 'https' }),
     videoUrl: Joi.string().allow(''),
     forumTopicId: Joi.number(),
     helpRoom: Joi.string(),
     id: Joi.objectId().required(),
     instructions: Joi.string().allow(''),
-    isHidden: Joi.bool().required(),
     isComingSoon: Joi.bool(),
     isLocked: Joi.bool(),
     isPrivate: Joi.bool(),
-    isRequired: Joi.bool(),
     name: Joi.string(),
     order: Joi.number(),
     // video challenges only:
@@ -72,7 +71,15 @@ function getSchemaForLang(lang) {
         crossDomain: Joi.bool()
       })
     ),
-    solutions: Joi.array().items(Joi.string().optional()),
+    solutions: Joi.array().items(
+      Joi.object().keys({
+        indexcss: fileJoi,
+        indexhtml: fileJoi,
+        indexjs: fileJoi,
+        indexjsx: fileJoi,
+        indexpy: fileJoi
+      })
+    ),
     superBlock: Joi.string(),
     superOrder: Joi.number(),
     suborder: Joi.number(),
@@ -96,8 +103,9 @@ function getSchemaForLang(lang) {
   });
 
   if (lang !== 'english') {
+    // TODO: make this required again once all current challenges have it.
     schema = schema.append({
-      localeTitle: Joi.string().required()
+      localeTitle: Joi.string().allow('')
     });
   }
   return schema;

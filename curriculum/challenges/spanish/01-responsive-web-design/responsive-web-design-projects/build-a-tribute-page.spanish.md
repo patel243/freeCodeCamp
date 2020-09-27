@@ -1,7 +1,6 @@
 ---
 id: bd7158d8c442eddfaeb5bd18
 title: Build a Tribute Page
-isRequired: true
 challengeType: 3
 videoUrl: ''
 localeTitle: Construir una página de tributo
@@ -30,7 +29,7 @@ Cumple las siguientes <a href="https://en.wikipedia.org/wiki/User_story" target=
   
 <strong>Historia de usuario no. 8:</strong> el elemento <code>img</code> debe redimensionarse responsivamente, en relación con el ancho de su elemento principal, sin exceder su tamaño original.  
   
-<strong>Historia de usuario no. 9:</strong> el elemento <code>img</code> debe estar centrado dentro de su elemento primario. Puedes construir tu proyecto por medio de <a href="http://codepen.io/freeCodeCamp/pen/MJjpwO" target="_blank">este bolígrafo CodePen</a> . O puede usar este enlace CDN para ejecutar las pruebas en el entorno que desee: <code>https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js</code> . Una vez que haya terminado, envíe la URL a su proyecto de trabajo con todas las pruebas aprobadas. Recuerde usar el método de <a href="https://www.freecodecamp.org/forum/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">lectura-búsqueda-pregunta</a> si se atasca. </section>
+<strong>Historia de usuario no. 9:</strong> el elemento <code>img</code> debe estar centrado dentro de su elemento primario. Puedes construir tu proyecto por medio de <a href="http://codepen.io/freeCodeCamp/pen/MJjpwO" target="_blank">este bolígrafo CodePen</a> . O puede usar este enlace CDN para ejecutar las pruebas en el entorno que desee: <code>https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js</code> . Una vez que haya terminado, envíe la URL a su proyecto de trabajo con todas las pruebas aprobadas. Recuerde usar el método de <a href="https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck-coding/19514" target="_blank">lectura-búsqueda-pregunta</a> si se atasca. </section>
 
 ## Instructions
 <section id="instructions">
