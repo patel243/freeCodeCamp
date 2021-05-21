@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 
 import Loader from '../components/helpers/Loader';
 import {
@@ -10,7 +10,7 @@ import {
   fetchProfileForUser,
   usernameSelector
 } from '../redux';
-import FourOhFourPage from '../components/FourOhFour';
+import FourOhFour from '../components/FourOhFour';
 import Profile from '../components/profile/Profile';
 import { isBrowser } from '../../utils/index';
 
@@ -25,10 +25,14 @@ const propTypes = {
   showLoading: PropTypes.bool
 };
 
-const createRequestedUserSelector = () => (state, { maybeUser = '' }) =>
-  userByNameSelector(maybeUser.toLowerCase())(state);
-const createIsSessionUserSelector = () => (state, { maybeUser = '' }) =>
-  maybeUser.toLowerCase() === usernameSelector(state);
+const createRequestedUserSelector =
+  () =>
+  (state, { maybeUser = '' }) =>
+    userByNameSelector(maybeUser.toLowerCase())(state);
+const createIsSessionUserSelector =
+  () =>
+  (state, { maybeUser = '' }) =>
+    maybeUser.toLowerCase() === usernameSelector(state);
 
 const makeMapStateToProps = () => (state, props) => {
   const requestedUserSelector = createRequestedUserSelector();
@@ -69,7 +73,7 @@ class ShowProfileOrFourOhFour extends Component {
       // We have a response from the API, but there is nothing in the store
       // for /:maybeUser. We can derive from this state the /:maybeUser is not
       // a user the API recognises, so we 404
-      return <FourOhFourPage />;
+      return <FourOhFour />;
     }
 
     // We have a response from the API, and we have some state in the

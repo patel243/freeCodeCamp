@@ -1,11 +1,10 @@
 /* global cy */
 
-describe('A certification,', function() {
-  describe('while viewing your own,', function() {
+describe('A certification,', function () {
+  describe('while viewing your own,', function () {
     before(() => {
-      cy.visit('/');
-      cy.contains("Get started (it's free)").click({ force: true });
-      cy.contains('Update my account settings').click({ force: true });
+      cy.login();
+      cy.visit('/settings');
 
       // set user settings to public to claim a cert
       cy.get('label:contains(Public)>input').each(el => {
@@ -51,37 +50,48 @@ describe('A certification,', function() {
         .click({ force: true });
     });
 
-    it('should render a LinkedIn button', function() {
-      cy.contains('Add this certification to my LinkedIn profile').should(
-        'have.attr',
-        'href',
-        'https://www.linkedin.com/profile/add?startTask=CERTIFICATION_NAME&name=Legacy Front End&organizationId=4831032&issueYear=2020&issueMonth=8&certUrl=https://freecodecamp.org/certification/developmentuser/legacy-front-end'
-      );
+    it('should render a LinkedIn button', function () {
+      cy.contains('Add this certification to my LinkedIn profile')
+        .should('have.attr', 'href')
+        .and(
+          'match',
+          // eslint-disable-next-line max-len
+          /https:\/\/www\.linkedin\.com\/profile\/add\?startTask=CERTIFICATION_NAME&name=Legacy Front End&organizationId=4831032&issueYear=\d\d\d\d&issueMonth=\d\d?&certUrl=https:\/\/freecodecamp\.org\/certification\/developmentuser\/legacy-front-end/
+        );
     });
 
-    it('should render a Twitter button', function() {
+    it('should render a Twitter button', function () {
       cy.contains('Share this certification on Twitter').should(
         'have.attr',
         'href',
         'https://twitter.com/intent/tweet?text=I just earned the Legacy Front End certification @freeCodeCamp! Check it out here: https://freecodecamp.org/certification/developmentuser/legacy-front-end'
       );
     });
+
+    it("should be issued with today's date", () => {
+      const date = new Date();
+      const issued = `Issued\xa0${new Intl.DateTimeFormat('en-US', {
+        month: 'long'
+      }).format(date)} ${date.getDate()}, ${date.getFullYear()}`;
+      cy.get('[data-cy=issue-date]').should('have.text', issued);
+    });
   });
 
-  describe("while viewing someone else's,", function() {
+  describe("while viewing someone else's,", function () {
     before(() => {
       cy.go('back');
-      cy.contains('Sign me out of freeCodeCamp').click({ force: true });
+      cy.get('.toggle-button-nav').click();
+      cy.get('.nav-list').contains('Sign out').click();
       cy.visit('/certification/developmentuser/legacy-front-end');
     });
 
-    it('should not render a LinkedIn button', function() {
+    it('should not render a LinkedIn button', function () {
       cy.contains('Add this certification to my LinkedIn profile').should(
         'not.exist'
       );
     });
 
-    it('should not render a Twitter button', function() {
+    it('should not render a Twitter button', function () {
       cy.contains('Share this certification on Twitter').should('not.exist');
     });
   });

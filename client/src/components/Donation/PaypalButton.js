@@ -5,14 +5,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import PayPalButtonScriptLoader from './PayPalButtonScriptLoader';
-import { paypalClientId, deploymentEnv } from '../../../config/env.json';
-import { verifySubscriptionPaypal } from '../../utils/ajax';
+import { withTranslation } from 'react-i18next';
+
+import envData from '../../../../config/env.json';
 import {
   paypalConfigurator,
   paypalConfigTypes
 } from '../../../../config/donation-settings';
 import { signInLoadingSelector, userSelector } from '../../redux';
 
+const { paypalClientId, deploymentEnv } = envData;
 export class PaypalButton extends Component {
   constructor(props) {
     super(props);
@@ -38,101 +40,93 @@ export class PaypalButton extends Component {
   handleApproval = (data, isSubscription) => {
     const { amount, duration } = this.state;
     const { skipAddDonation = false } = this.props;
+
     // Skip the api if user is not signed in or if its a one-time donation
-    if (skipAddDonation || !isSubscription) {
-      this.props.onDonationStateChange(
-        true,
-        false,
-        data.error ? data.error : ''
-      );
-    } else {
-      this.props.handleProcessing(
-        duration,
-        amount,
-        'Paypal payment submission'
-      );
-      this.props.onDonationStateChange(false, true, '');
-      verifySubscriptionPaypal(data)
-        .then(response => {
-          const data = response && response.data;
-          this.props.onDonationStateChange(
-            true,
-            false,
-            data.error ? data.error : ''
-          );
-        })
-        .catch(error => {
-          const data =
-            error.response && error.response.data
-              ? error.response.data
-              : {
-                  error: `Something is not right. Please contact team@freecodecamp.org`
-                };
-          this.props.onDonationStateChange(false, false, data.error);
-        });
+    if (!skipAddDonation || isSubscription) {
+      this.props.addDonation(data);
     }
+
+    this.props.handleProcessing(duration, amount, 'Paypal payment submission');
+
+    // Show success anytime because the payment has gone through paypal
+    this.props.onDonationStateChange({
+      processing: false,
+      success: true,
+      error: data.error ? data.error : null
+    });
   };
 
   render() {
     const { duration, planId, amount } = this.state;
+    const { t, theme } = this.props;
     const isSubscription = duration !== 'onetime';
-
+    const buttonColor = theme === 'night' ? 'white' : 'gold';
     if (!paypalClientId) {
       return null;
     }
 
     return (
-      <PayPalButtonScriptLoader
-        amount={amount}
-        clientId={paypalClientId}
-        createOrder={(data, actions) => {
-          return actions.order.create({
-            purchase_units: [
-              {
-                amount: {
-                  currency_code: 'USD',
-                  value: (amount / 100).toString()
+      <div className={'paypal-buttons-container'}>
+        <PayPalButtonScriptLoader
+          amount={amount}
+          clientId={paypalClientId}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    currency_code: 'USD',
+                    value: (amount / 100).toString()
+                  }
                 }
-              }
-            ]
-          });
-        }}
-        createSubscription={(data, actions) => {
-          return actions.subscription.create({
-            plan_id: planId
-          });
-        }}
-        isSubscription={isSubscription}
-        onApprove={data => {
-          this.handleApproval(data, isSubscription);
-        }}
-        onCancel={() => {
-          this.props.onDonationStateChange(
-            false,
-            false,
-            `Uh - oh. It looks like your transaction didn't go through. Could you please try again?`
-          );
-        }}
-        onError={() =>
-          this.props.onDonationStateChange(false, false, 'Please try again.')
-        }
-        plantId={planId}
-        style={{
-          tagline: false,
-          height: 43
-        }}
-      />
+              ]
+            });
+          }}
+          createSubscription={(data, actions) => {
+            return actions.subscription.create({
+              plan_id: planId
+            });
+          }}
+          isSubscription={isSubscription}
+          onApprove={data => {
+            this.handleApproval(data, isSubscription);
+          }}
+          onCancel={() => {
+            this.props.onDonationStateChange({
+              processing: false,
+              success: false,
+              error: t('donate.failed-pay')
+            });
+          }}
+          onError={() =>
+            this.props.onDonationStateChange({
+              processing: false,
+              success: false,
+              error: t('donate.try-again')
+            })
+          }
+          plantId={planId}
+          style={{
+            tagline: false,
+            height: 43,
+            color: buttonColor
+          }}
+        />
+      </div>
     );
   }
 }
 
 const propTypes = {
+  addDonation: PropTypes.func,
   donationAmount: PropTypes.number,
   donationDuration: PropTypes.string,
   handleProcessing: PropTypes.func,
   isDonating: PropTypes.bool,
   onDonationStateChange: PropTypes.func,
-  skipAddDonation: PropTypes.bool
+  skipAddDonation: PropTypes.bool,
+  t: PropTypes.func.isRequired,
+  theme: PropTypes.string
 };
 
 const mapStateToProps = createSelector(
@@ -147,4 +141,4 @@ const mapStateToProps = createSelector(
 PaypalButton.displayName = 'PaypalButton';
 PaypalButton.propTypes = propTypes;
 
-export default connect(mapStateToProps)(PaypalButton);
+export default connect(mapStateToProps)(withTranslation()(PaypalButton));

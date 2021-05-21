@@ -1,7 +1,11 @@
+/* global jest */
+
 import { types } from '.';
 import { createGaSaga } from './ga-saga';
 import ga from '../analytics';
 import { expectSaga } from 'redux-saga-test-plan';
+
+jest.mock('../analytics');
 
 describe('ga-saga', () => {
   it('calls GA after executeGA action', () => {
@@ -9,7 +13,7 @@ describe('ga-saga', () => {
     const mockEventPayload = {
       type: 'event',
       data: {
-        category: 'donation',
+        category: 'Donation',
         action: 'year end gift paypal button click'
       }
     };

@@ -49,52 +49,38 @@ const getPrevChallengePath = (node, index, nodeArray) => {
 
 const getTemplateComponent = challengeType => views[viewTypes[challengeType]];
 
-const getIntroIfRequired = (node, index, nodeArray) => {
-  const next = nodeArray[index + 1];
-  const isEndOfBlock = next && next.node.challengeOrder === 0;
-  let nextSuperBlock = '';
-  let nextBlock = '';
-  if (next) {
-    const { superBlock, block } = next.node;
-    nextSuperBlock = superBlock;
-    nextBlock = block;
-  }
-  return isEndOfBlock
-    ? `/learn/${dasherize(nextSuperBlock)}/${dasherize(nextBlock)}`
-    : '';
-};
+exports.createChallengePages =
+  createPage =>
+  ({ node }, index, thisArray) => {
+    const {
+      superBlock,
+      block,
+      fields: { slug },
+      required = [],
+      template,
+      challengeType,
+      id
+    } = node;
+    // TODO: challengeType === 7 and isPrivate are the same, right? If so, we
+    // should remove one of them.
 
-exports.createChallengePages = createPage => ({ node }, index, thisArray) => {
-  const {
-    superBlock,
-    block,
-    fields: { slug },
-    required = [],
-    template,
-    challengeType,
-    id
-  } = node;
-  // TODO: challengeType === 7 and isPrivate are the same, right? If so, we
-  // should remove one of them.
-
-  return createPage({
-    path: slug,
-    component: getTemplateComponent(challengeType),
-    context: {
-      challengeMeta: {
-        superBlock,
-        block: block,
-        introPath: getIntroIfRequired(node, index, thisArray),
-        template,
-        required,
-        nextChallengePath: getNextChallengePath(node, index, thisArray),
-        prevChallengePath: getPrevChallengePath(node, index, thisArray),
-        id
-      },
-      slug
-    }
-  });
-};
+    return createPage({
+      path: slug,
+      component: getTemplateComponent(challengeType),
+      context: {
+        challengeMeta: {
+          superBlock,
+          block,
+          template,
+          required,
+          nextChallengePath: getNextChallengePath(node, index, thisArray),
+          prevChallengePath: getPrevChallengePath(node, index, thisArray),
+          id
+        },
+        slug
+      }
+    });
+  };
 
 exports.createBlockIntroPages = createPage => edge => {
   const {
@@ -122,7 +108,7 @@ exports.createSuperBlockIntroPages = createPage => edge => {
     path: slug,
     component: superBlockIntro,
     context: {
-      superBlock: dasherize(superBlock),
+      superBlock,
       slug
     }
   });

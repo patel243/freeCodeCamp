@@ -2,6 +2,7 @@
 const path = require('path');
 const liveServer = require('live-server');
 const stringSimilarity = require('string-similarity');
+const { isAuditedCert } = require('../../utils/is-audited');
 
 const spinner = require('ora')();
 
@@ -10,11 +11,18 @@ require('@babel/polyfill');
 require('@babel/register')({
   root: clientPath,
   babelrc: false,
-  presets: ['@babel/preset-env'],
+  presets: ['@babel/preset-env', '@babel/typescript'],
   plugins: ['dynamic-import-node'],
   ignore: [/node_modules/],
   only: [clientPath]
 });
+
+const mockRequire = require('mock-require');
+const lodash = require('lodash');
+
+// lodash-es can't easily be used in node environments, so we just mock it out
+// for the original lodash in testing.
+mockRequire('lodash-es', lodash);
 
 const createPseudoWorker = require('./utils/pseudo-worker');
 const {
@@ -23,7 +31,8 @@ const {
 
 const { assert, AssertionError } = require('chai');
 const Mocha = require('mocha');
-const { flatten, isEmpty, cloneDeep } = require('lodash');
+
+const { flatten, isEmpty, cloneDeep, isEqual } = lodash;
 const { getLines } = require('../../utils/get-lines');
 
 const jsdom = require('jsdom');
@@ -32,17 +41,17 @@ const vm = require('vm');
 
 const puppeteer = require('puppeteer');
 
-const { getChallengesForLang, getMetaForBlock } = require('../getChallenges');
+const {
+  getChallengesForLang,
+  getMetaForBlock,
+  getTranslatableComments
+} = require('../getChallenges');
 
 const MongoIds = require('./utils/mongoIds');
 const ChallengeTitles = require('./utils/challengeTitles');
 const { challengeSchemaValidator } = require('../schema/challengeSchema');
-const {
-  challengeTypes,
-  helpCategory
-} = require('../../client/utils/challengeTypes');
+const { challengeTypes } = require('../../client/utils/challengeTypes');
 
-const { dasherize } = require('../../utils/slugs');
 const { toSortedArray } = require('../../utils/sort-files');
 
 const { testedLang } = require('../utils');
@@ -54,7 +63,24 @@ const {
 
 const { sortChallenges } = require('./utils/sort-challenges');
 
-const testEvaluator = require('../../client/config/test-evaluator').filename;
+const TRANSLATABLE_COMMENTS = getTranslatableComments(
+  path.resolve(__dirname, '..', 'dictionaries')
+);
+
+// the config files are created during the build, but not before linting
+/* eslint-disable import/no-unresolved */
+const testEvaluator =
+  require('../../config/client/test-evaluator.json').filename;
+/* eslint-enable import/no-unresolved */
+const { inspect } = require('util');
+
+const commentExtractors = {
+  html: require('./utils/extract-html-comments'),
+  js: require('./utils/extract-js-comments'),
+  jsx: require('./utils/extract-jsx-comments'),
+  css: require('./utils/extract-css-comments'),
+  scriptJs: require('./utils/extract-script-js-comments')
+};
 
 // rethrow unhandled rejections to make sure the tests exit with -1
 process.on('unhandledRejection', err => handleRejection(err));
@@ -77,7 +103,7 @@ const dom = new jsdom.JSDOM('');
 global.document = dom.window.document;
 
 const oldRunnerFail = Mocha.Runner.prototype.fail;
-Mocha.Runner.prototype.fail = function(test, err) {
+Mocha.Runner.prototype.fail = function (test, err) {
   if (err instanceof AssertionError) {
     const errMessage = String(err.message || '');
     const assertIndex = errMessage.indexOf(': expected');
@@ -182,11 +208,11 @@ async function setup() {
 
   const meta = {};
   for (const challenge of challenges) {
-    const dashedBlockName = dasherize(challenge.block);
+    const dashedBlockName = challenge.block;
     if (!meta[dashedBlockName]) {
-      meta[dashedBlockName] = (await getMetaForBlock(
-        dashedBlockName
-      )).challengeOrder;
+      meta[dashedBlockName] = (
+        await getMetaForBlock(dashedBlockName)
+      ).challengeOrder;
     }
   }
   return {
@@ -207,8 +233,8 @@ function cleanup() {
 }
 
 function runTests(challengeData) {
-  describe('Check challenges', function() {
-    after(function() {
+  describe('Check challenges', function () {
+    after(function () {
       cleanup();
     });
     populateTestsForLang(challengeData);
@@ -233,39 +259,20 @@ async function getChallenges(lang) {
   return sortChallenges(challenges);
 }
 
-function validateBlock(challenge) {
-  const dashedBlock = dasherize(challenge.block);
-  if (!helpCategory.hasOwnProperty(dashedBlock)) {
-    return `'${dashedBlock}' block not found as a helpCategory in client/utils/challengeTypes.js file for the '${challenge.title}' challenge`;
-  } else {
-    return null;
-  }
-}
-
 function populateTestsForLang({ lang, challenges, meta }) {
   const mongoIds = new MongoIds();
   const challengeTitles = new ChallengeTitles();
-  const validateChallenge = challengeSchemaValidator(lang);
+  const validateChallenge = challengeSchemaValidator();
 
-  describe(`Check challenges (${lang})`, function() {
+  describe(`Check challenges (${lang})`, function () {
     this.timeout(5000);
     challenges.forEach((challenge, id) => {
-      const dashedBlockName = dasherize(challenge.block);
-      describe(challenge.block || 'No block', function() {
-        describe(challenge.title || 'No title', function() {
-          it('Matches a title in meta.json', function() {
-            const index = meta[dashedBlockName].findIndex(
-              arr => arr[1] === challenge.title
-            );
-
-            if (index < 0) {
-              throw new AssertionError(
-                `Cannot find title "${challenge.title}" in meta.json file`
-              );
-            }
-          });
-
-          it('Matches an ID in meta.json', function() {
+      const dashedBlockName = challenge.block;
+      describe(challenge.block || 'No block', function () {
+        describe(challenge.title || 'No title', function () {
+          // Note: the title in meta.json are purely for human readability and
+          // do not include translations, so we do not validate against them.
+          it('Matches an ID in meta.json', function () {
             const index = meta[dashedBlockName].findIndex(
               arr => arr[0] === challenge.id
             );
@@ -277,21 +284,93 @@ function populateTestsForLang({ lang, challenges, meta }) {
             }
           });
 
-          it('Common checks', function() {
+          it('Common checks', function () {
             const result = validateChallenge(challenge);
-            const invalidBlock = validateBlock(challenge);
 
             if (result.error) {
               throw new AssertionError(result.error);
             }
-            if (challenge.challengeType !== 7 && invalidBlock) {
-              throw new Error(invalidBlock);
-            }
             const { id, title, block, dashedName } = challenge;
-            const dashedBlock = dasherize(block);
-            const pathAndTitle = `${dashedBlock}/${dashedName}`;
+            const pathAndTitle = `${block}/${dashedName}`;
             mongoIds.check(id, title);
             challengeTitles.check(title, pathAndTitle);
+          });
+
+          it('Has replaced all the English comments', () => {
+            // special cases are where this process breaks for some reason, but
+            // we have validated that the challenge gets parsed correctly.
+            const specialCases = [
+              '587d7b84367417b2b2512b36',
+              '587d7b84367417b2b2512b37',
+              '587d7db0367417b2b2512b82',
+              '587d7dbe367417b2b2512bb8',
+              '5a24c314108439a4d4036161',
+              '5a24c314108439a4d4036154',
+              '5a94fe0569fb03452672e45c',
+              '5a94fe7769fb03452672e463',
+              '5a24c314108439a4d4036148'
+            ];
+            if (specialCases.includes(challenge.id)) return;
+            if (
+              lang === 'english' ||
+              !isAuditedCert(lang, challenge.superBlock)
+            ) {
+              return;
+            }
+
+            // If no .files, then no seed:
+            if (!challenge.files) return;
+
+            // - None of the translatable comments should appear in the
+            //   translations. While this is a crude check, no challenges
+            //   currently have the text of a comment elsewhere. If that happens
+            //   we can handle that challenge separately.
+            TRANSLATABLE_COMMENTS.forEach(comment => {
+              Object.values(challenge.files).forEach(file => {
+                if (file.contents.includes(comment))
+                  throw Error(
+                    `English comment '${comment}' should be replaced with its translation`
+                  );
+              });
+            });
+
+            // - None of the translated comment texts should appear *outside* a
+            //   comment
+            Object.values(challenge.files).forEach(file => {
+              let comments = {};
+
+              // We get all the actual comments using the appropriate parsers
+              if (file.ext === 'html') {
+                const commentTypes = ['css', 'html', 'scriptJs'];
+                for (let type of commentTypes) {
+                  const newComments = commentExtractors[type](file.contents);
+                  for (const [key, value] of Object.entries(newComments)) {
+                    comments[key] = comments[key]
+                      ? comments[key] + value
+                      : value;
+                  }
+                }
+              } else {
+                comments = commentExtractors[file.ext](file.contents);
+              }
+
+              // Then we compare the number of times each comment appears in the
+              // translated text (commentMap) with the number of replacements
+              // made during translation (challenge.__commentCounts). If they
+              // differ, the translation must have gone wrong
+
+              const commentMap = new Map(Object.entries(comments));
+
+              if (isEmpty(challenge.__commentCounts) && isEmpty(commentMap))
+                return;
+
+              if (!isEqual(commentMap, challenge.__commentCounts))
+                throw Error(`Mismatch in ${challenge.title}. Replaced comments:
+${inspect(challenge.__commentCounts)}
+Comments in translated text:
+${inspect(commentMap)}
+`);
+            });
           });
 
           const { challengeType } = challenge;
@@ -312,9 +391,9 @@ function populateTestsForLang({ lang, challenges, meta }) {
             return;
           }
 
-          describe('Check tests syntax', function() {
+          describe('Check tests syntax', function () {
             tests.forEach(test => {
-              it(`Check for: ${test.text}`, function() {
+              it(`Check for: ${test.text}`, function () {
                 assert.doesNotThrow(() => new vm.Script(test.testString));
               });
             });
@@ -331,7 +410,7 @@ function populateTestsForLang({ lang, challenges, meta }) {
               ? buildJSChallenge
               : buildDOMChallenge;
 
-          it('Test suite must fail on the initial contents', async function() {
+          it('Test suite must fail on the initial contents', async function () {
             this.timeout(5000 * tests.length + 1000);
             // suppress errors in the console.
             const oldConsoleError = console.error;
@@ -411,10 +490,12 @@ function populateTestsForLang({ lang, challenges, meta }) {
             return;
           }
 
-          describe('Check tests against solutions', function() {
+          describe('Check tests against solutions', function () {
             solutions.forEach((solution, index) => {
-              it(`Solution ${index + 1} must pass the tests`, async function() {
-                this.timeout(5000 * tests.length + 1000);
+              it(`Solution ${
+                index + 1
+              } must pass the tests`, async function () {
+                this.timeout(5000 * tests.length + 2000);
                 const testRunner = await createTestRunner(
                   challenge,
                   solution,
@@ -439,7 +520,7 @@ async function createTestRunner(
   buildChallenge,
   solutionFromNext
 ) {
-  const { required = [], template } = challenge;
+  const { required = [], template, removeComments } = challenge;
   // we should avoid modifying challenge, as it gets reused:
   const files = cloneDeep(challenge.files);
 
@@ -453,6 +534,7 @@ async function createTestRunner(
     required,
     template
   });
+
   const code = {
     contents: sources.index,
     editableContents: sources.editableContents
@@ -460,20 +542,27 @@ async function createTestRunner(
 
   const evaluator = await (buildChallenge === buildDOMChallenge
     ? getContextEvaluator(build, sources, code, loadEnzyme)
-    : getWorkerEvaluator(build, sources, code));
+    : getWorkerEvaluator(build, sources, code, removeComments));
 
   return async ({ text, testString }) => {
     try {
       const { pass, err } = await evaluator.evaluate(testString, 5000);
       if (!pass) {
-        throw new AssertionError(err.message);
+        throw err;
       }
     } catch (err) {
+      // add more info to the error so the failing test can be identified.
       text = 'Test text: ' + text;
-      const message = solutionFromNext
+      const newMessage = solutionFromNext
         ? 'Check next step for solution!\n' + text
         : text;
-      reThrow(err, message);
+      // if the stack is missing, the message should be included. Otherwise it
+      // is redundant.
+      err.message = err.stack
+        ? newMessage
+        : `${newMessage}
+      ${err.message}`;
+      throw err;
     }
   };
 }
@@ -494,12 +583,14 @@ async function getContextEvaluator(build, sources, code, loadEnzyme) {
   };
 }
 
-async function getWorkerEvaluator(build, sources, code) {
+async function getWorkerEvaluator(build, sources, code, removeComments) {
   const testWorker = createWorker(testEvaluator, { terminateWorker: true });
   return {
     evaluate: async (testString, timeout) =>
-      await testWorker.execute({ testString, build, code, sources }, timeout)
-        .done
+      await testWorker.execute(
+        { testString, build, code, sources, removeComments },
+        timeout
+      ).done
   };
 }
 
@@ -515,14 +606,4 @@ async function initializeTestRunner(build, sources, code, loadEnzyme) {
     sources,
     loadEnzyme
   );
-}
-
-function reThrow(err, text) {
-  const newMessage = `${text}
-  ${err.message}`;
-  if (err.name === 'AssertionError') {
-    throw new AssertionError(newMessage);
-  } else {
-    throw Error(newMessage);
-  }
 }

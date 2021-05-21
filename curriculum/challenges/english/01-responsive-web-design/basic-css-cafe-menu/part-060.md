@@ -1,33 +1,27 @@
 ---
-id: 5f3ef6e0b431cc215bb16f55
+id: 5f3ef6e056bdde6ae6892ba2
 title: Part 60
 challengeType: 0
-isHidden: true
+dashedName: part-60
 ---
 
-## Description
-<section id='description'>
+# --description--
 
-Add a second `p` element below the one with the link and give it the text `123 Free Code Camp Drive`.
+It is a bit boring for all the text to have the same `font-family`. You can still have the majority of the text `sans-serif` and make just the `h1` and `h2` elements different using a different selector.
 
-</section>
+Style both the `h1` and the `h2` elements so that only these elements' text use `Impact` font.
 
-## Tests
-<section id='tests'>
+# --hints--
 
-```yml
-tests:
-  - text: Test 1
-    testString: ''
+Test 1
+
+```js
 
 ```
 
-</section>
+# --seed--
 
-## Challenge Seed
-<section id='challengeSeed'>
-
-<div id='html-seed'>
+## --seed-contents--
 
 ```html
 <!DOCTYPE html>
@@ -42,7 +36,7 @@ tests:
     <div class="menu">
       <header>
         <h1>CAMPER CAFE</h1>
-        <p class="established">Est. 2020</p>
+        <p>Est. 2020</p>
       </header>
       <main>
         <section>
@@ -79,38 +73,15 @@ tests:
           </article>
         </section>
       </main>
-      <footer>
-        --fcc-editable-region--
-        <p>
-          <a href="https://www.freecodecamp.org" target="_blank">Visit our website</a>
-        </p>
-        --fcc-editable-region--
-      </footer>
     </div>
   </body>
 <html>
 ```
 
-</div>
-
-<div id='css-seed'>
-
 ```css
 body {
   background-image: url(https://tinyurl.com/coffee-beans-fcc);
   font-family: sans-serif;
-}
-
-h1 {
-  font-size: 40px;
-}
-
-h2 {
-  font-size: 30px;
-}
-
-.established {
-  font-style: italic;
 }
 
 h1, h2, p {
@@ -126,9 +97,9 @@ h1, h2, p {
   max-width: 500px;
 }
 
-h1, h2 {
-  font-family: Impact, serif;
-}
+--fcc-editable-region--
+
+--fcc-editable-region--
 
 .item p {
   display: inline-block;
@@ -145,6 +116,3 @@ h1, h2 {
 }
 ```
 
-</div>
-
-</section>

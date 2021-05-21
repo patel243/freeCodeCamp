@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import nanoid from 'nanoid';
+import { nanoid } from 'nanoid';
 import {
   Button,
   FormGroup,
@@ -8,8 +8,9 @@ import {
   FormControl,
   HelpBlock
 } from '@freecodecamp/react-bootstrap';
-import { findIndex, find, isEqual } from 'lodash';
+import { findIndex, find, isEqual } from 'lodash-es';
 import isURL from 'validator/lib/isURL';
+import { withTranslation } from 'react-i18next';
 
 import { hasProtocolRE } from '../../utils';
 
@@ -27,6 +28,7 @@ const propTypes = {
       url: PropTypes.string
     })
   ),
+  t: PropTypes.func.isRequired,
   updatePortfolio: PropTypes.func.isRequired,
   username: PropTypes.string
 };
@@ -121,30 +123,27 @@ class PortfolioSettings extends Component {
     const { state: titleState } = this.getTitleValidation(title);
     const { state: urlState } = this.getUrlValidation(url);
     const { state: imageState } = this.getUrlValidation(image, true);
-    const { state: descriptionState } = this.getDescriptionValidation(
-      description
-    );
+    const { state: descriptionState } =
+      this.getDescriptionValidation(description);
     return [titleState, imageState, urlState, descriptionState]
       .filter(Boolean)
       .every(state => state === 'success');
   };
 
   getDescriptionValidation(description) {
+    const { t } = this.props;
     const len = description.length;
     const charsLeft = 288 - len;
     if (charsLeft < 0) {
       return {
         state: 'error',
-        message: 'There is a maximum limit of 288 characters, you have 0 left'
+        message: t('validation.max-characters', { charsLeft: 0 })
       };
     }
     if (charsLeft < 41 && charsLeft > 0) {
       return {
         state: 'warning',
-        message:
-          'There is a maximum limit of 288 characters, you have ' +
-          charsLeft +
-          ' left'
+        message: t('validation.max-characters', { charsLeft: charsLeft })
       };
     }
     if (charsLeft === 288) {
@@ -154,23 +153,25 @@ class PortfolioSettings extends Component {
   }
 
   getTitleValidation(title) {
+    const { t } = this.props;
     if (!title) {
-      return { state: 'error', message: 'A title is required' };
+      return { state: 'error', message: t('validation.title-required') };
     }
     const len = title.length;
     if (len < 2) {
-      return { state: 'error', message: 'Title is too short' };
+      return { state: 'error', message: t('validation.title-short') };
     }
     if (len > 144) {
-      return { state: 'error', message: 'Title is too long' };
+      return { state: 'error', message: t('validation.title-long') };
     }
     return { state: 'success', message: '' };
   }
 
   getUrlValidation(maybeUrl, isImage) {
+    const { t } = this.props;
     const len = maybeUrl.length;
     if (len >= 4 && !hasProtocolRE.test(maybeUrl)) {
-      return { state: 'error', message: 'URL must start with http or https' };
+      return { state: 'error', message: t('validation.invalid-protocol') };
     }
     if (isImage && !maybeUrl) {
       return { state: null, message: '' };
@@ -178,30 +179,27 @@ class PortfolioSettings extends Component {
     if (isImage && !/\.(png|jpg|jpeg|gif)$/.test(maybeUrl)) {
       return {
         state: 'error',
-        message: 'URL must link directly to an image file'
+        message: t('validation.url-not-image')
       };
     }
     return isURL(maybeUrl)
       ? { state: 'success', message: '' }
-      : { state: 'warning', message: 'Please use a valid URL' };
+      : { state: 'warning', message: t('validation.use-valid-url') };
   }
 
   renderPortfolio = (portfolio, index, arr) => {
+    const { t } = this.props;
     const { id, title, description, url, image } = portfolio;
     const pristine = this.isFormPristine(id);
-    const {
-      state: titleState,
-      message: titleMessage
-    } = this.getTitleValidation(title);
+    const { state: titleState, message: titleMessage } =
+      this.getTitleValidation(title);
     const { state: urlState, message: urlMessage } = this.getUrlValidation(url);
     const { state: imageState, message: imageMessage } = this.getUrlValidation(
       image,
       true
     );
-    const {
-      state: descriptionState,
-      message: descriptionMessage
-    } = this.getDescriptionValidation(description);
+    const { state: descriptionState, message: descriptionMessage } =
+      this.getDescriptionValidation(description);
 
     return (
       <div key={id}>
@@ -213,7 +211,7 @@ class PortfolioSettings extends Component {
                 pristine || (!pristine && !title) ? null : titleState
               }
             >
-              <ControlLabel>Title</ControlLabel>
+              <ControlLabel>{t('settings.labels.title')}</ControlLabel>
               <FormControl
                 onChange={this.createOnChangeHandler(id, 'title')}
                 required={true}
@@ -228,7 +226,7 @@ class PortfolioSettings extends Component {
                 pristine || (!pristine && !url) ? null : urlState
               }
             >
-              <ControlLabel>URL</ControlLabel>
+              <ControlLabel>{t('settings.labels.url')}</ControlLabel>
               <FormControl
                 onChange={this.createOnChangeHandler(id, 'url')}
                 required={true}
@@ -241,7 +239,7 @@ class PortfolioSettings extends Component {
               controlId={`${id}-image`}
               validationState={pristine ? null : imageState}
             >
-              <ControlLabel>Image</ControlLabel>
+              <ControlLabel>{t('settings.labels.image')}</ControlLabel>
               <FormControl
                 onChange={this.createOnChangeHandler(id, 'image')}
                 type='url'
@@ -253,7 +251,7 @@ class PortfolioSettings extends Component {
               controlId={`${id}-description`}
               validationState={pristine ? null : descriptionState}
             >
-              <ControlLabel>Description</ControlLabel>
+              <ControlLabel>{t('settings.labels.description')}</ControlLabel>
               <FormControl
                 componentClass='textarea'
                 onChange={this.createOnChangeHandler(id, 'description')}
@@ -276,7 +274,7 @@ class PortfolioSettings extends Component {
                 })
               }
             >
-              Save this portfolio item
+              {t('buttons.save-portfolio')}
             </BlockSaveButton>
             <ButtonSpacer />
             <Button
@@ -286,7 +284,7 @@ class PortfolioSettings extends Component {
               onClick={() => this.handleRemoveItem(id)}
               type='button'
             >
-              Remove this portfolio item
+              {t('buttons.remove-portfolio')}
             </Button>
           </form>
           {index + 1 !== arr.length && (
@@ -302,16 +300,14 @@ class PortfolioSettings extends Component {
   };
 
   render() {
+    const { t } = this.props;
     const { portfolio = [] } = this.state;
     return (
       <section id='portfolio-settings'>
-        <SectionHeader>Portfolio Settings</SectionHeader>
+        <SectionHeader>{t('settings.headings.portfolio')}</SectionHeader>
         <FullWidthRow>
           <div className='portfolio-settings-intro'>
-            <p className='p-intro'>
-              Share your non-freeCodeCamp projects, articles or accepted pull
-              requests.
-            </p>
+            <p className='p-intro'>{t('settings.share-projects')}</p>
           </div>
         </FullWidthRow>
         <FullWidthRow>
@@ -323,7 +319,7 @@ class PortfolioSettings extends Component {
             onClick={this.handleAdd}
             type='button'
           >
-            Add a new portfolio Item
+            {t('buttons.add-portfolio')}
           </Button>
         </FullWidthRow>
         <Spacer size={2} />
@@ -336,4 +332,4 @@ class PortfolioSettings extends Component {
 PortfolioSettings.displayName = 'PortfolioSettings';
 PortfolioSettings.propTypes = propTypes;
 
-export default PortfolioSettings;
+export default withTranslation()(PortfolioSettings);

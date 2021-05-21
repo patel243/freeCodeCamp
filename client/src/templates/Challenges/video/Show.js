@@ -9,6 +9,7 @@ import Helmet from 'react-helmet';
 import YouTube from 'react-youtube';
 import { createSelector } from 'reselect';
 import { ObserveKeys } from 'react-hotkeys';
+import { withTranslation } from 'react-i18next';
 
 // Local Utilities
 import PrismFormatted from '../components/PrismFormatted';
@@ -61,12 +62,13 @@ const propTypes = {
   pageContext: PropTypes.shape({
     challengeMeta: PropTypes.object
   }),
+  t: PropTypes.func.isRequired,
   updateChallengeMeta: PropTypes.func.isRequired,
   updateSolutionFormValues: PropTypes.func.isRequired
 };
 
 // Component
-export class Project extends Component {
+class Project extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,12 +87,17 @@ export class Project extends Component {
     const {
       challengeMounted,
       data: {
-        challengeNode: { title, challengeType }
+        challengeNode: { title, challengeType, helpCategory }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
     } = this.props;
-    updateChallengeMeta({ ...challengeMeta, title, challengeType });
+    updateChallengeMeta({
+      ...challengeMeta,
+      title,
+      challengeType,
+      helpCategory
+    });
     challengeMounted(challengeMeta.id);
     this._container.focus();
   }
@@ -104,7 +111,7 @@ export class Project extends Component {
     const {
       challengeMounted,
       data: {
-        challengeNode: { title: currentTitle, challengeType }
+        challengeNode: { title: currentTitle, challengeType, helpCategory }
       },
       pageContext: { challengeMeta },
       updateChallengeMeta
@@ -113,7 +120,8 @@ export class Project extends Component {
       updateChallengeMeta({
         ...challengeMeta,
         title: currentTitle,
-        challengeType
+        challengeType,
+        helpCategory
       });
       challengeMounted(challengeMeta.id);
     }
@@ -152,14 +160,18 @@ export class Project extends Component {
           fields: { blockName },
           title,
           description,
+          superBlock,
+          block,
+          translationPending,
           videoId,
           question: { text, answers, solution }
         }
       },
       openCompletionModal,
       pageContext: {
-        challengeMeta: { introPath, nextChallengePath, prevChallengePath }
+        challengeMeta: { nextChallengePath, prevChallengePath }
       },
+      t,
       isChallengeCompleted
     } = this.props;
 
@@ -170,17 +182,23 @@ export class Project extends Component {
           this.handleSubmit(solution, openCompletionModal);
         }}
         innerRef={c => (this._container = c)}
-        introPath={introPath}
         nextChallengePath={nextChallengePath}
         prevChallengePath={prevChallengePath}
       >
         <LearnLayout>
-          <Helmet title={`${blockNameTitle} | Learn | freeCodeCamp.org`} />
+          <Helmet
+            title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
+          />
           <Grid>
             <Row>
               <Spacer />
-              <ChallengeTitle isCompleted={isChallengeCompleted}>
-                {blockNameTitle}
+              <ChallengeTitle
+                block={block}
+                isCompleted={isChallengeCompleted}
+                superBlock={superBlock}
+                translationPending={translationPending}
+              >
+                {title}
               </ChallengeTitle>
 
               <Col lg={10} lgOffset={1} md={10} mdOffset={1}>
@@ -216,7 +234,7 @@ export class Project extends Component {
                       rel='noopener noreferrer'
                       target='_blank'
                     >
-                      Help improve or add subtitles
+                      {t('learn.add-subtitles')}
                     </a>
                     .
                   </i>
@@ -233,7 +251,7 @@ export class Project extends Component {
                       // index should be fine as a key:
                       <label className='video-quiz-option-label' key={index}>
                         <input
-                          aria-label='Answer'
+                          aria-label={t('aria.answer')}
                           checked={this.state.selectedOption === index}
                           className='video-quiz-input-hidden'
                           name='quiz'
@@ -243,7 +261,7 @@ export class Project extends Component {
                         />{' '}
                         <span className='video-quiz-input-visible'>
                           {this.state.selectedOption === index ? (
-                            <span className='video-quiz-selected-input'></span>
+                            <span className='video-quiz-selected-input' />
                           ) : null}
                         </span>
                         <PrismFormatted
@@ -261,11 +279,9 @@ export class Project extends Component {
                   }}
                 >
                   {this.state.showWrong ? (
-                    <span>
-                      Sorry, that's not the right answer. Give it another try?
-                    </span>
+                    <span>{t('learn.wrong-answer')}</span>
                   ) : (
-                    <span>Click the button below to check your answer.</span>
+                    <span>{t('learn.check-answer')}</span>
                   )}
                 </div>
                 <Spacer />
@@ -277,11 +293,15 @@ export class Project extends Component {
                     this.handleSubmit(solution, openCompletionModal)
                   }
                 >
-                  Check your answer
+                  {t('buttons.check-answer')}
                 </Button>
                 <Spacer size={2} />
               </Col>
-              <CompletionModal blockName={blockName} />
+              <CompletionModal
+                block={block}
+                blockName={blockName}
+                superBlock={superBlock}
+              />
             </Row>
           </Grid>
         </LearnLayout>
@@ -296,7 +316,7 @@ Project.propTypes = propTypes;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Project);
+)(withTranslation()(Project));
 
 export const query = graphql`
   query VideoChallenge($slug: String!) {
@@ -305,6 +325,9 @@ export const query = graphql`
       title
       description
       challengeType
+      helpCategory
+      superBlock
+      block
       fields {
         blockName
         slug
@@ -314,6 +337,7 @@ export const query = graphql`
         answers
         solution
       }
+      translationPending
     }
   }
 `;

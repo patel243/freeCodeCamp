@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Image } from '@freecodecamp/react-bootstrap';
 import DefaultAvatar from '../../assets/icons/DefaultAvatar';
 import { defaultUserImage } from '../../../../config/misc';
+import { borderColorPicker } from '../helpers';
+import { useTranslation } from 'react-i18next';
 
 const propTypes = {
   isDonating: PropTypes.bool,
@@ -11,14 +13,8 @@ const propTypes = {
   userName: PropTypes.string.isRequired
 };
 
-function borderColorPicker(isDonating, isTopContributor) {
-  if (isDonating && isTopContributor) return 'purple-border';
-  else if (isTopContributor) return 'green-border';
-  else if (isDonating) return 'gold-border';
-  else return 'default-border';
-}
-
 function AvatarRenderer({ picture, userName, isDonating, isTopContributor }) {
+  const { t } = useTranslation();
   let borderColor = borderColorPicker(isDonating, isTopContributor);
   let isPlaceHolderImage =
     /example.com|identicon.org/.test(picture) || picture === defaultUserImage;
@@ -29,7 +25,7 @@ function AvatarRenderer({ picture, userName, isDonating, isTopContributor }) {
         <DefaultAvatar className='avatar default-avatar' />
       ) : (
         <Image
-          alt={userName + "'s avatar"}
+          alt={t('profile.avatar', { username: userName })}
           className='avatar'
           responsive={true}
           src={picture}

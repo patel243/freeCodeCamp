@@ -1,52 +1,39 @@
 const {
   reorderSteps,
   createStepFile,
-  getChallengeSeed,
+  getChallengeSeeds,
   padWithLeadingZeros,
   getExistingStepNums,
-  getProjectPath
+  getProjectPath,
+  getArgValues
 } = require('./utils');
 
 const allStepsExist = (steps, stepsToFind) =>
   stepsToFind.every(num => steps.includes(num));
 
 const projectPath = getProjectPath();
-const argValuePairs = process.argv.slice(2);
+const args = getArgValues(process.argv);
 
-const args = argValuePairs.reduce((argsObj, arg) => {
-  const [argument, value] = arg.replace(/\s/g, '').split('=');
-  if (!argument || !value) {
-    throw `Invalid argument/value specified: ${arg}`;
-  }
-  return { ...argsObj, [argument]: value };
-}, {});
+const start = parseInt(args.start, 10);
 
-let { start, end } = args;
-start = parseInt(start, 10);
-end = parseInt(end, 10);
-
-if (
-  !Number.isInteger(start) ||
-  !Number.isInteger(end) ||
-  start < 1 ||
-  start !== end - 1
-) {
-  throw 'Step not created. Steps specified must be' +
-    ' consecutive numbers and start step must be greater than 0.';
+if (!Number.isInteger(start) || start < 1) {
+  throw 'Step not created. Start step must be greater than 0.';
 }
+
+const end = start + 1;
 
 const existingSteps = getExistingStepNums(projectPath);
 if (!allStepsExist(existingSteps, [start, end])) {
-  throw 'Step not created. At least one of the steps specified does not exist.';
+  throw `Step not created. Both start step, ${start}, and end step, ${end}, must exist`;
 }
 
-const challengeSeed = getChallengeSeed(
+const challengeSeeds = getChallengeSeeds(
   `${projectPath}part-${padWithLeadingZeros(start)}.md`
 );
 createStepFile({
   stepNum: start,
   projectPath,
-  challengeSeed,
+  challengeSeeds,
   stepBetween: true
 });
 console.log(`Sucessfully added step between step #${start} and step #${end}`);

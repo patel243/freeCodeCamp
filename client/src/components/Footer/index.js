@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useTranslation } from 'react-i18next';
 import Link from '../helpers/Link';
-
 import './footer.css';
 
 const propTypes = {
@@ -17,349 +16,175 @@ const ColHeader = ({ children, ...other }) => (
 ColHeader.propTypes = propTypes;
 
 function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className='site-footer'>
       <div className='footer-container'>
         <div className='footer-top'>
           <div className='footer-desc-col'>
-            <p>
-              freeCodeCamp is a donor-supported tax-exempt 501(c)(3) nonprofit
-              organization (United States Federal Tax Identification Number:
-              82-0779546)
-            </p>
-            <p>
-              Our mission: to help people learn to code for free. We accomplish
-              this by creating thousands of videos, articles, and interactive
-              coding lessons - all freely available to the public. We also have
-              thousands of freeCodeCamp study groups around the world.
-            </p>
-            <p>
-              Donations to freeCodeCamp go toward our education initiatives, and
-              help pay for servers, services, and staff.
-            </p>
+            <p>{t('footer.tax-exempt-status')}</p>
+            <p>{t('footer.mission-statement')}</p>
+            <p>{t('footer.donation-initiatives')}</p>
             <p className='footer-donation'>
-              You can&nbsp;
+              {t('footer.donate-text')}{' '}
               <Link className='inline' to='/donate'>
-                make a tax-deductible donation here
+                {t('footer.donate-link')}
               </Link>
               .
             </p>
           </div>
           <div className='trending-guides'>
-            <div className='col-header'>Trending Guides</div>
+            <div className='col-header'>{t('footer.trending-guides')}</div>
             <div className='trending-guides-row'>
               <div className='footer-col footer-col-1'>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/javascript-closure-tutorial-with-js-closure-example-code/'
-                  }
-                >
-                  JavaScript Closure
+                <Link external={false} to={t('trending:article0link')}>
+                  {t('trending:article0title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/css-tutorial-drop-shadow/'
-                  }
-                >
-                  CSS Box Shadow
+                <Link external={false} to={t('trending:article1link')}>
+                  {t('trending:article1title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/python-list-append-how-to-add-an-element-to-an-array-explained-with-examples/'
-                  }
-                >
-                  Python List Append
+                <Link external={false} to={t('trending:article2link')}>
+                  {t('trending:article2title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/javascript-array-sort-tutorial-how-to-use-js-sort-methods-with-code-examples/'
-                  }
-                >
-                  JavaScript Array Sort
+                <Link external={false} to={t('trending:article3link')}>
+                  {t('trending:article3title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/symlink-tutorial-in-linux-how-to-create-and-remove-a-symbolic-link/'
-                  }
-                >
-                  Symlink in Linux
+                <Link external={false} to={t('trending:article4link')}>
+                  {t('trending:article4title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/grep-command-tutorial-how-to-search-for-a-file-in-linux-and-unix/'
-                  }
-                >
-                  Linux Grep Command
+                <Link external={false} to={t('trending:article5link')}>
+                  {t('trending:article5title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={'https://www.freecodecamp.org/news/what-is-dns/'}
-                >
-                  What is DNS?
+                <Link external={false} to={t('trending:article6link')}>
+                  {t('trending:article6title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/primary-key-sql-tutorial-how-to-define-a-primary-key-in-a-database/'
-                  }
-                >
-                  Primary Key SQL
+                <Link external={false} to={t('trending:article7link')}>
+                  {t('trending:article7title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/sql-update-statement-example-queries-for-updating-table-values/'
-                  }
-                >
-                  SQL Update Statement
+                <Link external={false} to={t('trending:article8link')}>
+                  {t('trending:article8title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/how-to-screenshot-on-windows/'
-                  }
-                >
-                  Screenshot on PC
+                <Link external={false} to={t('trending:article9link')}>
+                  {t('trending:article9title')}
                 </Link>
               </div>
               <div className='footer-col footer-col-2'>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/'
-                  }
-                >
-                  JavaScript Promise
+                <Link external={false} to={t('trending:article10link')}>
+                  {t('trending:article10title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/what-is-github-what-is-git-and-how-to-use-these-developer-tools/'
-                  }
-                >
-                  What is GitHub?
+                <Link external={false} to={t('trending:article11link')}>
+                  {t('trending:article11title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/the-python-sort-list-array-method-ascending-and-descending-explained-with-examples/'
-                  }
-                >
-                  Python Sort List
+                <Link external={false} to={t('trending:article12link')}>
+                  {t('trending:article12title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/json-comment-example-how-to-comment-in-json-files/'
-                  }
-                >
-                  Comments in JSON
+                <Link external={false} to={t('trending:article13link')}>
+                  {t('trending:article13title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/what-is-kanban-the-agile-methodology-defined-and-how-to-use-it-for-your-software-development-team-2/'
-                  }
-                >
-                  What is Kanban?
+                <Link external={false} to={t('trending:article14link')}>
+                  {t('trending:article14title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/python-write-to-file-open-read-append-and-other-file-handling-functions-explained/'
-                  }
-                >
-                  Python Write to File
+                <Link external={false} to={t('trending:article15link')}>
+                  {t('trending:article15title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/css-media-queries-breakpoints-media-types-standard-resolutions-and-more/'
-                  }
-                >
-                  CSS Media Queries
+                <Link external={false} to={t('trending:article16link')}>
+                  {t('trending:article16title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={
-                    'https://www.freecodecamp.org/news/html-entities-symbols-special-character-codes-list/'
-                  }
-                >
-                  HTML Entities
+                <Link external={false} to={t('trending:article17link')}>
+                  {t('trending:article17title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={'https://www.freecodecamp.org/news/excel-vba-tutorial/'}
-                >
-                  Excel VBA
+                <Link external={false} to={t('trending:article18link')}>
+                  {t('trending:article18title')}
                 </Link>
-                <Link
-                  external={false}
-                  to={'https://www.freecodecamp.org/news/vlookup-in-excel/'}
-                >
-                  LOOKUP in Excel
+                <Link external={false} to={t('trending:article19link')}>
+                  {t('trending:article19title')}
                 </Link>
               </div>
               <div className='footer-col footer-col-3'>
                 <div className='footer-left'>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/what-is-a-proxy-server-in-english-please/'
-                    }
-                  >
-                    What is a Proxy Server?
+                  <Link external={false} to={t('trending:article20link')}>
+                    {t('trending:article20title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/the-cat-command-in-linux-concatenation-explained-with-bash-examples/'
-                    }
-                  >
-                    Cat Command in Linux
+                  <Link external={false} to={t('trending:article21link')}>
+                    {t('trending:article21title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/how-to-add-an-image-url-to-your-div/'
-                    }
-                  >
-                    CSS Background Image
+                  <Link external={false} to={t('trending:article22link')}>
+                    {t('trending:article22title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/html-background-color-tutorial-how-to-change-a-div-background-color-explained-with-code-examples/'
-                    }
-                  >
-                    HTML Background Color
+                  <Link external={false} to={t('trending:article23link')}>
+                    {t('trending:article23title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={'https://www.freecodecamp.org/news/comments-in-css/'}
-                  >
-                    CSS Comment Example
+                  <Link external={false} to={t('trending:article24link')}>
+                    {t('trending:article24title')}
                   </Link>
                 </div>
 
                 <div className='footer-right'>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/arrow-function-javascript-tutorial-how-to-declare-a-js-function-with-the-new-es6-syntax/'
-                    }
-                  >
-                    Arrow Function JavaScript
+                  <Link external={false} to={t('trending:article25link')}>
+                    {t('trending:article25title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/how-to-remove-duplicates-in-excel-delete-duplicate-rows-with-a-few-clicks/'
-                    }
-                  >
-                    Remove Duplicates in Excel
+                  <Link external={false} to={t('trending:article26link')}>
+                    {t('trending:article26title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/what-is-dllhost-exe-and-com-surrogate-in-windows-task-manager-solved/'
-                    }
-                  >
-                    dllhost.exe COM Surrogate
+                  <Link external={false} to={t('trending:article27link')}>
+                    {t('trending:article27title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={'https://www.freecodecamp.org/news/boolean-algebra/'}
-                  >
-                    Boolean Algebra Truth Table
+                  <Link external={false} to={t('trending:article28link')}>
+                    {t('trending:article28title')}
                   </Link>
-                  <Link
-                    external={false}
-                    to={
-                      'https://www.freecodecamp.org/news/can-you-facetime-on-android-no-but-here-are-some-alternative-video-conferencing-apps/'
-                    }
-                  >
-                    Video Chat for Android
+                  <Link external={false} to={t('trending:article29link')}>
+                    {t('trending:article29title')}
                   </Link>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className='footer-buttom'>
-          <div className='col-header'>Our Nonprofit</div>
-          <div className='footer-divder'></div>
+        <div className='footer-bottom'>
+          <div className='col-header'>{t('footer.our-nonprofit')}</div>
+          <div className='footer-divder' />
           <div className='our-nonprofit'>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/about/'}
-            >
-              About
+            <Link external={false} to={t('links:footer.about-url')}>
+              {t('footer.links.about')}
             </Link>
             <Link
               external={false}
               sameTab={false}
               to={'https://www.linkedin.com/school/free-code-camp/people/'}
             >
-              Alumni Network
+              {t('footer.links.alumni')}
             </Link>
             <Link external={false} to={'https://github.com/freeCodeCamp/'}>
-              Open Source
+              {t('footer.links.open-source')}
             </Link>
             <Link
               external={false}
               sameTab={false}
-              to={'https://www.freecodecamp.org/shop/'}
+              to={t('links:footer.shop-url')}
             >
-              Shop
+              {t('footer.links.shop')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/support/'}
-            >
-              Support
+            <Link external={false} to={t('links:footer.support-url')}>
+              {t('footer.links.support')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/sponsors/'}
-            >
-              Sponsors
+            <Link external={false} to={t('links:footer.sponsors-url')}>
+              {t('footer.links.sponsors')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/academic-honesty-policy/'}
-            >
-              Academic Honesty
+            <Link external={false} to={t('links:footer.honesty-url')}>
+              {t('footer.links.honesty')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/code-of-conduct/'}
-            >
-              Code of Conduct
+            <Link external={false} to={t('links:footer.coc-url')}>
+              {t('footer.links.coc')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/privacy-policy/'}
-            >
-              Privacy Policy
+            <Link external={false} to={t('links:footer.privacy-url')}>
+              {t('footer.links.privacy')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/terms-of-service/'}
-            >
-              Terms of Service
+            <Link external={false} to={t('links:footer.tos-url')}>
+              {t('footer.links.tos')}
             </Link>
-            <Link
-              external={false}
-              to={'https://www.freecodecamp.org/news/copyright-policy/'}
-            >
-              Copyright Policy
+            <Link external={false} to={t('links:footer.copyright-url')}>
+              {t('footer.links.copyright')}
             </Link>
           </div>
         </div>

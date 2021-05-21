@@ -1,33 +1,25 @@
 ---
-id: 5f45a05977e2fa49d9119437
+id: 5f3ef6e0b431cc215bb16f55
 title: Part 67
 challengeType: 0
-isHidden: true
+dashedName: part-67
 ---
 
-## Description
-<section id='description'>
+# --description--
 
-To create a little more room around the menu, add `20px` of space on the inside of the `body` element by using the `padding` property.
+Add a second `p` element below the one with the link and give it the text `123 freeCodeCamp Drive`.
 
-</section>
+# --hints--
 
-## Tests
-<section id='tests'>
+Test 1
 
-```yml
-tests:
-  - text: Test 1
-    testString: ''
+```js
 
 ```
 
-</section>
+# --seed--
 
-## Challenge Seed
-<section id='challengeSeed'>
-
-<div id='html-seed'>
+## --seed-contents--
 
 ```html
 <!DOCTYPE html>
@@ -44,7 +36,6 @@ tests:
         <h1>CAMPER CAFE</h1>
         <p class="established">Est. 2020</p>
       </header>
-      <hr>
       <main>
         <section>
           <h2>Coffees</h2>
@@ -80,29 +71,23 @@ tests:
           </article>
         </section>
       </main>
-      <hr>
       <footer>
+--fcc-editable-region--
         <p>
           <a href="https://www.freecodecamp.org" target="_blank">Visit our website</a>
         </p>
-        <p>123 Free Code Camp Drive</p>
+--fcc-editable-region--
       </footer>
     </div>
   </body>
 <html>
 ```
 
-</div>
-
-<div id='css-seed'>
-
 ```css
---fcc-editable-region--
 body {
   background-image: url(https://tinyurl.com/coffee-beans-fcc);
   font-family: sans-serif;
 }
---fcc-editable-region--
 
 h1 {
   font-size: 40px;
@@ -129,12 +114,6 @@ h1, h2, p {
   max-width: 500px;
 }
 
-hr {
-  height: 2px;
-  background-color: brown;
-  border-color: brown;
-}
-
 h1, h2 {
   font-family: Impact, serif;
 }
@@ -154,6 +133,3 @@ h1, h2 {
 }
 ```
 
-</div>
-
-</section>

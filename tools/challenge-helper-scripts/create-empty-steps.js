@@ -2,22 +2,15 @@ const {
   reorderSteps,
   createStepFile,
   getExistingStepNums,
-  getProjectPath
+  getProjectPath,
+  getArgValues
 } = require('./utils');
 
 const anyStepExists = (steps, stepsToFind) =>
   stepsToFind.some(num => steps.includes(num));
 
 const projectPath = getProjectPath();
-const argValuePairs = process.argv.slice(2);
-
-const args = argValuePairs.reduce((argsObj, arg) => {
-  const [argument, value] = arg.replace(/\s/g, '').split('=');
-  if (!argument || !value) {
-    throw `Invalid argument/value specified: ${arg}`;
-  }
-  return { ...argsObj, [argument]: value };
-}, {});
+const args = getArgValues(process.argv);
 
 let { num, start } = args;
 if (!start) {
@@ -29,8 +22,8 @@ if (!num) {
 num = parseInt(num, 10);
 const stepStart = parseInt(start, 10);
 
-if (num < 1 || num > 20) {
-  throw `No steps created. arg 'num' must be between 1 and 20 inclusive`;
+if (num < 1 || num > 100) {
+  throw `No steps created. arg 'num' must be between 1 and 100 inclusive`;
 }
 
 const maxStepNum = stepStart + num - 1;

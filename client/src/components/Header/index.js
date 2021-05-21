@@ -2,14 +2,12 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 
-import stripeObserver from './stripeIframesFix';
 import UniversalNav from './components/UniversalNav';
 
 import './header.css';
 
 const propTypes = {
   fetchState: PropTypes.shape({ pending: PropTypes.bool }),
-  pathName: PropTypes.string.isRequired,
   user: PropTypes.object
 };
 
@@ -27,10 +25,6 @@ export class Header extends React.Component {
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside);
-
-    // Remove stacking Stripe iframes with each navigation
-    // after visiting /donate
-    stripeObserver();
   }
 
   componentWillUnmount() {
@@ -54,7 +48,7 @@ export class Header extends React.Component {
   }
   render() {
     const { displayMenu } = this.state;
-    const { fetchState, pathName, user } = this.props;
+    const { fetchState, user } = this.props;
     return (
       <>
         <Helmet>
@@ -65,7 +59,6 @@ export class Header extends React.Component {
             displayMenu={displayMenu}
             fetchState={fetchState}
             menuButtonRef={this.menuButtonRef}
-            pathName={pathName}
             searchBarRef={this.searchBarRef}
             toggleDisplayMenu={this.toggleDisplayMenu}
             user={user}

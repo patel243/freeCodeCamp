@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Link } from '../../helpers';
+import { Link, SkeletonSprite } from '../../helpers';
 import NavLogo from './NavLogo';
 import SearchBar from '../../search/searchBar/SearchBar';
 import MenuButton from './MenuButton';
@@ -13,40 +13,52 @@ export const UniversalNav = ({
   toggleDisplayMenu,
   menuButtonRef,
   searchBarRef,
-  pathName,
   user,
   fetchState
-}) => (
-  <nav
-    className={'universal-nav nav-padding' + (displayMenu ? ' expand-nav' : '')}
-    id='universal-nav'
-  >
-    <div
-      className={'universal-nav-left' + (displayMenu ? ' display-flex' : '')}
+}) => {
+  const { pending } = fetchState;
+  return (
+    <nav
+      className={'universal-nav' + (displayMenu ? ' expand-nav' : '')}
+      id='universal-nav'
     >
-      <SearchBar innerRef={searchBarRef} />
-    </div>
-    <div className='universal-nav-middle'>
-      <Link id='universal-nav-logo' to='/learn'>
-        <NavLogo />
-        <span className='sr-only'>freeCodeCamp.org</span>
-      </Link>
-    </div>
-    <div className='universal-nav-right main-nav'>
+      <div
+        className={
+          'universal-nav-left' + (displayMenu ? ' display-search' : '')
+        }
+      >
+        <SearchBar innerRef={searchBarRef} />
+      </div>
+      <div className='universal-nav-middle'>
+        <Link id='universal-nav-logo' to='/learn'>
+          <NavLogo />
+          <span className='sr-only'>freeCodeCamp.org</span>
+        </Link>
+      </div>
+      <div className='universal-nav-right main-nav'>
+        {pending ? (
+          <div className='nav-skeleton'>
+            <SkeletonSprite />
+          </div>
+        ) : (
+          <MenuButton
+            displayMenu={displayMenu}
+            innerRef={menuButtonRef}
+            onClick={toggleDisplayMenu}
+            user={user}
+          />
+        )}
+      </div>
+
       <NavLinks
         displayMenu={displayMenu}
         fetchState={fetchState}
-        pathName={pathName}
+        toggleDisplayMenu={toggleDisplayMenu}
         user={user}
       />
-    </div>
-    <MenuButton
-      displayMenu={displayMenu}
-      innerRef={menuButtonRef}
-      onClick={toggleDisplayMenu}
-    />
-  </nav>
-);
+    </nav>
+  );
+};
 
 UniversalNav.displayName = 'UniversalNav';
 export default UniversalNav;
@@ -55,7 +67,6 @@ UniversalNav.propTypes = {
   displayMenu: PropTypes.bool,
   fetchState: PropTypes.shape({ pending: PropTypes.bool }),
   menuButtonRef: PropTypes.object,
-  pathName: PropTypes.string.isRequired,
   searchBarRef: PropTypes.object,
   toggleDisplayMenu: PropTypes.func,
   user: PropTypes.object

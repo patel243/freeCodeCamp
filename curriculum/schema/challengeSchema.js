@@ -3,33 +3,37 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const { challengeTypes } = require('../../client/utils/challengeTypes');
 
+const slugRE = new RegExp('^[a-z0-9-]+$');
+
 const fileJoi = Joi.object().keys({
   key: Joi.string(),
   ext: Joi.string(),
   name: Joi.string(),
   editableRegionBoundaries: [Joi.array().items(Joi.number())],
   path: Joi.string(),
-  error: Joi.empty(),
+  error: Joi.valid(null),
   head: Joi.string().allow(''),
   tail: Joi.string().allow(''),
   seed: Joi.string().allow(''),
   contents: Joi.string().allow(''),
+  id: Joi.string().allow(''),
   history: [Joi.array().items(Joi.string().allow('')), Joi.string().allow('')]
 });
 
-function getSchemaForLang(lang) {
-  let schema = Joi.object().keys({
-    block: Joi.string(),
+const schema = Joi.object()
+  .keys({
+    block: Joi.string().regex(slugRE),
     blockId: Joi.objectId(),
     challengeOrder: Joi.number(),
-    challengeType: Joi.number()
-      .min(0)
-      .max(11)
-      .required(),
+    removeComments: Joi.bool(),
+    challengeType: Joi.number().min(0).max(11).required(),
     checksum: Joi.number(),
-    dashedName: Joi.string(),
+    // __commentCounts is only used to test the comment replacement
+    __commentCounts: Joi.object(),
+    // TODO: require this only for normal challenges, not certs
+    dashedName: Joi.string().regex(slugRE),
     description: Joi.when('challengeType', {
-      is: Joi.only([challengeTypes.step, challengeTypes.video]),
+      is: [challengeTypes.step, challengeTypes.video],
       then: Joi.string().allow(''),
       otherwise: Joi.string().required()
     }),
@@ -41,6 +45,7 @@ function getSchemaForLang(lang) {
       indexjsx: fileJoi
     }),
     guideUrl: Joi.string().uri({ scheme: 'https' }),
+    helpCategory: Joi.valid('JavaScript', 'HTML-CSS', 'Python'),
     videoUrl: Joi.string().allow(''),
     forumTopicId: Joi.number(),
     helpRoom: Joi.string(),
@@ -49,7 +54,6 @@ function getSchemaForLang(lang) {
     isComingSoon: Joi.bool(),
     isLocked: Joi.bool(),
     isPrivate: Joi.bool(),
-    name: Joi.string(),
     order: Joi.number(),
     // video challenges only:
     videoId: Joi.when('challengeType', {
@@ -58,9 +62,7 @@ function getSchemaForLang(lang) {
     }),
     question: Joi.object().keys({
       text: Joi.string().required(),
-      answers: Joi.array()
-        .items(Joi.string())
-        .required(),
+      answers: Joi.array().items(Joi.string()).required(),
       solution: Joi.number().required()
     }),
     required: Joi.array().items(
@@ -80,16 +82,15 @@ function getSchemaForLang(lang) {
         indexpy: fileJoi
       })
     ),
-    superBlock: Joi.string(),
+    superBlock: Joi.string().regex(slugRE),
     superOrder: Joi.number(),
     suborder: Joi.number(),
     tests: Joi.array().items(
       // public challenges
       Joi.object().keys({
+        id: Joi.string().allow(''),
         text: Joi.string().required(),
-        testString: Joi.string()
-          .allow('')
-          .required()
+        testString: Joi.string().allow('').required()
       }),
       // our tests used in certification verification
       Joi.object().keys({
@@ -99,18 +100,11 @@ function getSchemaForLang(lang) {
     ),
     template: Joi.string().allow(''),
     time: Joi.string().allow(''),
-    title: Joi.string().required()
-  });
+    title: Joi.string().required(),
+    translationPending: Joi.bool().required()
+  })
+  .xor('helpCategory', 'isPrivate');
 
-  if (lang !== 'english') {
-    // TODO: make this required again once all current challenges have it.
-    schema = schema.append({
-      localeTitle: Joi.string().allow('')
-    });
-  }
-  return schema;
-}
-exports.challengeSchemaValidator = lang => {
-  const schema = getSchemaForLang(lang);
-  return challenge => Joi.validate(challenge, schema);
+exports.challengeSchemaValidator = () => {
+  return challenge => schema.validate(challenge);
 };
